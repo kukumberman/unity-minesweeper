@@ -12,6 +12,7 @@ namespace Kukumberman.Minesweeper.UI
     {
         public event Action OnMenuButtonClicked;
         public event Action<int> OnCellClicked;
+        public event Action<int> OnCellAsFlagClicked;
 
         private Button _btnMenu;
         private Label _txtElapsedTime;
@@ -49,7 +50,6 @@ namespace Kukumberman.Minesweeper.UI
 
         protected override void OnApplyModel(GameplayHudModel model)
         {
-            Debug.Log(Model != null);
             CreateSimpleGrid();
         }
 
@@ -63,11 +63,19 @@ namespace Kukumberman.Minesweeper.UI
             OnMenuButtonClicked.SafeInvoke();
         }
 
-        private void CellClickHandler(ClickEvent evt)
+        private void CellPointerUpEventHandler(PointerUpEvent evt)
         {
             var element = evt.currentTarget as CellElement;
+            var idx = element.Index;
 
-            OnCellClicked.SafeInvoke(element.Index);
+            if (evt.button == 0)
+            {
+                OnCellClicked.SafeInvoke(idx);
+            }
+            else if (evt.button == 1)
+            {
+                OnCellAsFlagClicked.SafeInvoke(idx);
+            }
         }
 
         private void CreateSimpleGrid()
@@ -96,7 +104,7 @@ namespace Kukumberman.Minesweeper.UI
                 cell.Setup();
                 cell.SetSize(cellSize);
                 cell.Index = i;
-                cell.RegisterCallback<ClickEvent>(CellClickHandler);
+                cell.RegisterCallback<PointerUpEvent>(CellPointerUpEventHandler);
                 cell.Model = Model.CellModels[i];
                 _grid.Add(cell);
             }

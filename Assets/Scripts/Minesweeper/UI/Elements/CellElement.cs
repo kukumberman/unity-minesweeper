@@ -15,7 +15,7 @@ namespace Kukumberman.Minesweeper.UI.Elements
 
         protected override void OnModelChanged(CellElementModel model)
         {
-            SetNeighborCount(model.NeighborCount);
+            SetNeighborCount(model.BombNeighborCount);
             SetBackgroundSprite(model.SpriteBackground);
             SetForegroundSprite(model.SpriteForeground);
         }

@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 2064514209}
   - component: {fileID: 2064514213}
   - component: {fileID: 2064514214}
+  - component: {fileID: 2064514215}
   m_Layer: 0
   m_Name: '[GameStartBehaviour]'
   m_TagString: Untagged
@@ -534,3 +535,15 @@ MonoBehaviour:
   SpriteBomb: {fileID: 21300000, guid: 1908ef1091c36254892fc20c02d6b419, type: 3}
   SpriteBombCrossmark: {fileID: 21300000, guid: 4b26ef3cd9fd5c24b9cd9bfb2f15226f, type: 3}
   SpriteFlag: {fileID: 21300000, guid: 4886f49ff2e795b45b6c0452b1437494, type: 3}
+--- !u!114 &2064514215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064514208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a64f34775ee554e8fa936b924afebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

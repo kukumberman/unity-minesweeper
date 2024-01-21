@@ -5,7 +5,7 @@ namespace Kukumberman.Minesweeper.UI
 {
     public sealed class CellElementModel : Observable
     {
-        public int NeighborCount;
+        public int BombNeighborCount;
         public Sprite SpriteBackground;
         public Sprite SpriteForeground;
     }

@@ -7,6 +7,7 @@ using Game.UI.Hud;
 using Injection;
 using UnityEngine;
 using Kukumberman.Minesweeper.States;
+using Kukumberman.Minesweeper.Core;
 
 namespace Kukumberman.Minesweeper.UI
 {
@@ -21,6 +22,7 @@ namespace Kukumberman.Minesweeper.UI
     {
         event Action OnMenuButtonClicked;
         event Action<int> OnCellClicked;
+        event Action<int> OnCellAsFlagClicked;
     }
 
     public sealed class GameplayHudMediator : Mediator<IGameplayHudView>
@@ -31,14 +33,30 @@ namespace Kukumberman.Minesweeper.UI
         [Inject]
         private MinesweeperStaticDataMono _staticData;
 
+        [Inject]
+        private IMinesweeperService _service;
+
         private GameplayHudModel _viewModel;
 
         protected override void Show()
         {
             _view.OnMenuButtonClicked += View_OnMenuButtonClicked;
             _view.OnCellClicked += View_OnCellClicked;
+            _view.OnCellAsFlagClicked += View_OnCellAsFlagClicked;
 
-            var gridSize = new Vector2Int(5, 6);
+            _service.OnStateChanged += Service_OnStateChanged;
+
+            var gridSize = new Vector2Int(9, 9);
+
+            _service.StartGame(
+                new MinesweeperGameSettings()
+                {
+                    Width = gridSize.x,
+                    Height = gridSize.y,
+                    BombCount = 10,
+                    Seed = 0,
+                }
+            );
 
             _viewModel = new GameplayHudModel
             {
@@ -47,14 +65,15 @@ namespace Kukumberman.Minesweeper.UI
                 CellModels = new List<CellElementModel>(),
             };
 
-            for (int i = 0, length = gridSize.x * gridSize.y; i < length; i++)
+            for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)
             {
+                var cell = _service.Game.CellsRef[i];
+
                 var model = new CellElementModel()
                 {
-                    // Dima: test
-                    NeighborCount = i % 9,
+                    BombNeighborCount = 0,
                     SpriteForeground = null,
-                    SpriteBackground = _staticData.SpriteCellUnlocked,
+                    SpriteBackground = _staticData.SpriteCellLocked,
                 };
                 _viewModel.CellModels.Add(model);
             }
@@ -66,6 +85,9 @@ namespace Kukumberman.Minesweeper.UI
         {
             _view.OnMenuButtonClicked -= View_OnMenuButtonClicked;
             _view.OnCellClicked -= View_OnCellClicked;
+            _view.OnCellAsFlagClicked -= View_OnCellAsFlagClicked;
+
+            _service.OnStateChanged -= Service_OnStateChanged;
         }
 
         private void View_OnMenuButtonClicked()
@@ -75,10 +97,56 @@ namespace Kukumberman.Minesweeper.UI
 
         private void View_OnCellClicked(int index)
         {
-            // Dima: test
-            var cellModel = _viewModel.CellModels[index];
-            cellModel.NeighborCount += 1;
-            cellModel.SetChanged();
+            _service.RevealCell(index);
+            SyncState();
+        }
+
+        private void View_OnCellAsFlagClicked(int index)
+        {
+            _service.FlagCell(index);
+            SyncState();
+        }
+
+        private void Service_OnStateChanged()
+        {
+            SyncState();
+        }
+
+        private void SyncState()
+        {
+            for (int i = 0; i < _service.Game.CellsRef.Length; i++)
+            {
+                var cell = _service.Game.CellsRef[i];
+                var cellModel = _viewModel.CellModels[i];
+
+                cellModel.SpriteBackground = cell.IsRevealed
+                    ? _staticData.SpriteCellUnlocked
+                    : _staticData.SpriteCellLocked;
+
+                if (!cell.IsRevealed && cell.IsFlag)
+                {
+                    cellModel.SpriteForeground = _staticData.SpriteFlag;
+                }
+                else if (cell.IsRevealed && cell.IsBomb)
+                {
+                    cellModel.SpriteForeground = _staticData.SpriteBomb;
+                }
+                else
+                {
+                    cellModel.SpriteForeground = null;
+                }
+
+                if (cell.IsRevealed && !cell.IsBomb)
+                {
+                    cellModel.BombNeighborCount = cell.BombNeighborCount;
+                }
+                else
+                {
+                    cellModel.BombNeighborCount = 0;
+                }
+
+                cellModel.SetChanged();
+            }
         }
     }
 }
