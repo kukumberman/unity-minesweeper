@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Kukumberman.Minesweeper.UI.Elements
 {
-    public sealed class CellElement : VisualElement
+    public sealed class CellElement : VisualElementWithModel<CellElementModel>
     {
         public new class UxmlFactory : UxmlFactory<CellElement, UxmlTraits> { }
 
@@ -12,6 +12,13 @@ namespace Kukumberman.Minesweeper.UI.Elements
         private Label _labelNeighborCount;
 
         public int Index { get; set; }
+
+        protected override void OnModelChanged(CellElementModel model)
+        {
+            SetNeighborCount(model.NeighborCount);
+            SetBackgroundSprite(model.SpriteBackground);
+            SetForegroundSprite(model.SpriteForeground);
+        }
 
         public void Setup()
         {

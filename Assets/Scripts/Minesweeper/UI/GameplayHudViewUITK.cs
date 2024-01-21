@@ -17,8 +17,16 @@ namespace Kukumberman.Minesweeper.UI
         private Label _txtElapsedTime;
         private VisualElement _grid;
 
+        private VisualTreeAsset _uxmlCell;
+
         protected override void OnEnable()
         {
+            // Dima:
+            // no way to add reference in inspector like in MonoBehaviour implementation
+            // and GameplayHudModel should not contain UXML data
+            var staticData = GameObject.FindObjectOfType<MinesweeperStaticDataMono>();
+            _uxmlCell = staticData.UxmlCell;
+
             _btnMenu = this.Q<Button>("btn-menu");
             _txtElapsedTime = this.Q<Label>("label-elapsed-time");
             _grid = this.Q<VisualElement>("grid");
@@ -28,8 +36,6 @@ namespace Kukumberman.Minesweeper.UI
             Debug.Assert(_grid != null);
 
             _btnMenu.clicked += BtnMenu_clicked;
-
-            CreateSimpleGrid();
         }
 
         protected override void OnDisable()
@@ -39,6 +45,12 @@ namespace Kukumberman.Minesweeper.UI
             _btnMenu = null;
             _txtElapsedTime = null;
             _grid = null;
+        }
+
+        protected override void OnApplyModel(GameplayHudModel model)
+        {
+            Debug.Log(Model != null);
+            CreateSimpleGrid();
         }
 
         protected override void OnModelChanged(GameplayHudModel model)
@@ -61,7 +73,7 @@ namespace Kukumberman.Minesweeper.UI
         private void CreateSimpleGrid()
         {
             var cellSize = 100;
-            var gridSize = new Vector2Int(5, 6);
+            var gridSize = Model.GridSize;
 
             _grid.style.width = new StyleLength(
                 new Length(cellSize * gridSize.x, LengthUnit.Pixel)
@@ -72,26 +84,20 @@ namespace Kukumberman.Minesweeper.UI
 
             _grid.Clear();
 
-            var staticData = GameObject.FindObjectOfType<MinesweeperStaticDataMono>();
-
-            for (int i = 0, length = gridSize.x * gridSize.y; i < length; i++)
+            for (int i = 0, length = Model.CellModels.Count; i < length; i++)
             {
-                var cell = staticData.UxmlCell.Instantiate()[0] as CellElement;
+                var cell = _uxmlCell.Instantiate()[0] as CellElement;
 
-                foreach (var styleSheet in staticData.UxmlCell.stylesheets)
+                foreach (var styleSheet in _uxmlCell.stylesheets)
                 {
                     cell.styleSheets.Add(styleSheet);
                 }
 
-                var neighborCount = i % 9;
-
                 cell.Setup();
                 cell.SetSize(cellSize);
-                cell.SetNeighborCount(neighborCount);
-                cell.SetForegroundSprite(null);
-                cell.SetBackgroundSprite(staticData.SpriteCellUnlocked);
                 cell.Index = i;
                 cell.RegisterCallback<ClickEvent>(CellClickHandler);
+                cell.Model = Model.CellModels[i];
                 _grid.Add(cell);
             }
         }

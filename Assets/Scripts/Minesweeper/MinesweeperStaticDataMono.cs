@@ -8,5 +8,8 @@ namespace Kukumberman.Minesweeper
         public VisualTreeAsset UxmlCell;
         public Sprite SpriteCellLocked;
         public Sprite SpriteCellUnlocked;
+        public Sprite SpriteBomb;
+        public Sprite SpriteBombCrossmark;
+        public Sprite SpriteFlag;
     }
 }
