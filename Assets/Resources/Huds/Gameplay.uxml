@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="width: 100%; height: 100%;">
+        <ui:VisualElement name="label-flex-wrapper" style="position: absolute; width: 100%; height: 200px; justify-content: center; align-items: center;">
+            <ui:Label text="123" name="label-elapsed-time" style="font-size: 100px; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="grid-flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
+            <ui:VisualElement name="grid" style="width: 200px; height: 200px; flex-wrap: wrap; flex-direction: row;" />
+        </ui:VisualElement>
+        <ui:Button text="Menu" name="btn-menu" style="position: absolute; left: 50px; top: 50px; width: 200px; height: 100px; font-size: 50px;" />
+    </ui:VisualElement>
+</ui:UXML>
