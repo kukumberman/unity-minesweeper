@@ -18,6 +18,8 @@ namespace Kukumberman.Minesweeper.UI.Elements
             SetNeighborCount(model.BombNeighborCount);
             SetBackgroundSprite(model.SpriteBackground);
             SetForegroundSprite(model.SpriteForeground);
+
+            this.EnableInClassList("cell-hidden", !model.IsRevealed);
         }
 
         public void Setup()

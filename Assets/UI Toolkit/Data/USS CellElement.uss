@@ -1,0 +1,4 @@
+CellElement.cell-hidden:hover
+{
+	-unity-background-image-tint-color: rgb(222, 222, 222);
+}

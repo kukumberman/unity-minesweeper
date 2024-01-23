@@ -71,6 +71,7 @@ namespace Kukumberman.Minesweeper.UI
 
                 var model = new CellElementModel()
                 {
+                    IsRevealed = false,
                     BombNeighborCount = 0,
                     SpriteForeground = null,
                     SpriteBackground = _sprites.Get(ESpriteType.CellLocked),
@@ -135,6 +136,8 @@ namespace Kukumberman.Minesweeper.UI
             {
                 var cell = _service.Game.CellsRef[i];
                 var cellModel = _viewModel.CellModels[i];
+
+                cellModel.IsRevealed = cell.IsRevealed;
 
                 cellModel.SpriteBackground = cell.IsRevealed
                     ? _sprites.Get(ESpriteType.CellUnlocked)

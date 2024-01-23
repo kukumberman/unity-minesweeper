@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20Colors.uss?fileID=7433441132597879392&amp;guid=8debc6f04ac4c184f9a1af2b18f79888&amp;type=3#USS Colors" />
+    <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20CellElement.uss?fileID=7433441132597879392&amp;guid=148ba44f50e83384883e75c25c054e81&amp;type=3#USS CellElement" />
     <Kukumberman.Minesweeper.UI.Elements.CellElement style="width: 100px; height: 100px; background-image: url(&apos;project://database/Assets/Sprites/cell%202.png?fileID=2800000&amp;guid=ce90e9f5409493a4ea8c23e245210c60&amp;type=3#cell 2&apos;);">
         <ui:VisualElement style="position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center;">
             <ui:VisualElement name="img-foreground" style="width: 69%; height: 69%; background-image: url(&apos;project://database/Assets/Sprites/bomb.png?fileID=2800000&amp;guid=1908ef1091c36254892fc20c02d6b419&amp;type=3#bomb&apos;); display: none;" />
