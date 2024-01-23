@@ -11,10 +11,13 @@ namespace Kukumberman.Minesweeper.UI
             IGameplayHudView
     {
         public event Action OnMenuButtonClicked;
+        public event Action OnRestartButtonClicked;
         public event Action<int> OnCellClicked;
         public event Action<int> OnCellAsFlagClicked;
 
         private Button _btnMenu;
+        private Label _txtBombRemaining;
+        private Button _btnRestart;
         private Label _txtElapsedTime;
         private VisualElement _grid;
 
@@ -29,21 +32,29 @@ namespace Kukumberman.Minesweeper.UI
             _uxmlCell = staticData.UxmlCell;
 
             _btnMenu = this.Q<Button>("btn-menu");
+            _btnRestart = this.Q<Button>("btn-restart");
+            _txtBombRemaining = this.Q<Label>("label-bomb-remaining");
             _txtElapsedTime = this.Q<Label>("label-elapsed-time");
             _grid = this.Q<VisualElement>("grid");
 
             Debug.Assert(_btnMenu != null);
+            Debug.Assert(_btnRestart != null);
+            Debug.Assert(_txtBombRemaining != null);
             Debug.Assert(_txtElapsedTime != null);
             Debug.Assert(_grid != null);
 
             _btnMenu.clicked += BtnMenu_clicked;
+            _btnRestart.clicked += BtnRestart_clicked;
         }
 
         protected override void OnDisable()
         {
             _btnMenu.clicked -= BtnMenu_clicked;
+            _btnRestart.clicked -= BtnRestart_clicked;
 
             _btnMenu = null;
+            _btnRestart = null;
+            _txtBombRemaining = null;
             _txtElapsedTime = null;
             _grid = null;
         }
@@ -56,11 +67,17 @@ namespace Kukumberman.Minesweeper.UI
         protected override void OnModelChanged(GameplayHudModel model)
         {
             _txtElapsedTime.text = string.Format("{0}", model.ElapsedSeconds);
+            _txtBombRemaining.text = string.Format("{0}", model.RemainingBombCount);
         }
 
         private void BtnMenu_clicked()
         {
             OnMenuButtonClicked.SafeInvoke();
+        }
+
+        private void BtnRestart_clicked()
+        {
+            OnRestartButtonClicked.SafeInvoke();
         }
 
         private void CellPointerUpEventHandler(PointerUpEvent evt)

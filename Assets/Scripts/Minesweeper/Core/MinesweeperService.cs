@@ -12,6 +12,9 @@ namespace Kukumberman.Minesweeper.Core
 
         private MinesweeperGame _game;
 
+        private MinesweeperGameSettings _settings;
+        private int _seed;
+
         public MinesweeperGame Game => _game;
 
         [ContextMenu(nameof(RevealAll))]
@@ -24,13 +27,23 @@ namespace Kukumberman.Minesweeper.Core
                 cell.IsRevealed = true;
             }
 
-            OnStateChanged.SafeInvoke();
+            DispatchStateChangedEvent();
         }
 
         public void StartGame(MinesweeperGameSettings settings, int seed)
         {
+            _settings = settings;
+            _seed = seed;
+
             _game = new MinesweeperGame(settings);
             _game.Play(seed);
+        }
+
+        public void Restart()
+        {
+            StartGame(_settings, _seed);
+
+            DispatchStateChangedEvent();
         }
 
         public void RevealCell(int index)
@@ -104,6 +117,11 @@ namespace Kukumberman.Minesweeper.Core
 
                 indexes.Clear();
             }
+        }
+
+        private void DispatchStateChangedEvent()
+        {
+            OnStateChanged.SafeInvoke();
         }
     }
 }
