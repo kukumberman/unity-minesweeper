@@ -18,6 +18,7 @@ namespace Kukumberman.Minesweeper.UI
     {
         public int RemainingBombCount;
         public int ElapsedSeconds;
+        public Sprite StateIconSprite;
         public Vector2Int GridSize;
         public List<CellElementModel> CellModels;
     }
@@ -63,6 +64,7 @@ namespace Kukumberman.Minesweeper.UI
                 ElapsedSeconds = 0,
                 GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
                 CellModels = new List<CellElementModel>(),
+                StateIconSprite = GetStateIconSprite(_service.State),
             };
 
             for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)
@@ -109,12 +111,22 @@ namespace Kukumberman.Minesweeper.UI
 
         private void View_OnCellClicked(int index)
         {
+            if (_service.State != EMinesweeperState.Playing)
+            {
+                return;
+            }
+
             _service.RevealCell(index);
             SyncState();
         }
 
         private void View_OnCellAsFlagClicked(int index)
         {
+            if (_service.State != EMinesweeperState.Playing)
+            {
+                return;
+            }
+
             _service.FlagCell(index);
             SyncState();
         }
@@ -126,8 +138,11 @@ namespace Kukumberman.Minesweeper.UI
 
         private void Timer_ONE_SECOND_TICK()
         {
-            _viewModel.ElapsedSeconds += 1;
-            _viewModel.SetChanged();
+            if (_service.State == EMinesweeperState.Playing)
+            {
+                _viewModel.ElapsedSeconds += 1;
+                _viewModel.SetChanged();
+            }
         }
 
         private void SyncState()
@@ -169,6 +184,7 @@ namespace Kukumberman.Minesweeper.UI
             }
 
             _viewModel.RemainingBombCount = GetRemainingBombCount();
+            _viewModel.StateIconSprite = GetStateIconSprite(_service.State);
             _viewModel.SetChanged();
         }
 
@@ -188,6 +204,21 @@ namespace Kukumberman.Minesweeper.UI
             }
 
             return baseCount - flagCount;
+        }
+
+        private Sprite GetStateIconSprite(EMinesweeperState state)
+        {
+            switch (state)
+            {
+                case EMinesweeperState.Playing:
+                    return _sprites.Get(ESpriteType.DogPatron);
+                case EMinesweeperState.Win:
+                    return _sprites.Get(ESpriteType.Win);
+                case EMinesweeperState.Defeat:
+                    return _sprites.Get(ESpriteType.Defeat);
+                default:
+                    return null;
+            }
         }
     }
 }

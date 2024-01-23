@@ -8,6 +8,8 @@ namespace Kukumberman.Minesweeper.Core
 
         MinesweeperGame Game { get; }
 
+        EMinesweeperState State { get; }
+
         void StartGame(MinesweeperGameSettings settings, int seed);
 
         void Restart();

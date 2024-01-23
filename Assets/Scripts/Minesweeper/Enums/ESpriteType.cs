@@ -8,5 +8,8 @@
         BombCrossmark,
         CellLocked,
         CellUnlocked,
+        DogPatron,
+        Defeat,
+        Win,
     }
 }

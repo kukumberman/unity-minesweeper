@@ -108,4 +108,12 @@ namespace Kukumberman.Minesweeper.Core
         public int Height;
         public int BombCount;
     }
+
+    public enum EMinesweeperState
+    {
+        None,
+        Playing,
+        Win,
+        Defeat,
+    }
 }

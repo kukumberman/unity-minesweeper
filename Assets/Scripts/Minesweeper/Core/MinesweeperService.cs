@@ -11,11 +11,14 @@ namespace Kukumberman.Minesweeper.Core
         public event Action OnStateChanged;
 
         private MinesweeperGame _game;
+        private EMinesweeperState _state;
 
         private MinesweeperGameSettings _settings;
         private int _seed;
 
         public MinesweeperGame Game => _game;
+
+        public EMinesweeperState State => _state;
 
         [ContextMenu(nameof(RevealAll))]
         private void RevealAll()
@@ -37,6 +40,8 @@ namespace Kukumberman.Minesweeper.Core
 
             _game = new MinesweeperGame(settings);
             _game.Play(seed);
+
+            _state = EMinesweeperState.Playing;
         }
 
         public void Restart()
@@ -59,12 +64,15 @@ namespace Kukumberman.Minesweeper.Core
 
             if (cell.IsBomb)
             {
-                Debug.Log("todo: cell.IsBomb");
+                _state = EMinesweeperState.Defeat;
+                return;
             }
             else if (cell.BombNeighborCount == 0)
             {
                 FloodFill(cell);
             }
+
+            CheckIfWin();
         }
 
         public void FlagCell(int index)
@@ -75,6 +83,8 @@ namespace Kukumberman.Minesweeper.Core
             {
                 cell.IsFlag = !cell.IsFlag;
             }
+
+            CheckIfWin();
         }
 
         private void FloodFill(MinesweeperCell cell)
@@ -117,6 +127,37 @@ namespace Kukumberman.Minesweeper.Core
 
                 indexes.Clear();
             }
+        }
+
+        private void CheckIfWin()
+        {
+            if (IsAboutToWin())
+            {
+                _state = EMinesweeperState.Win;
+            }
+        }
+
+        private bool IsAboutToWin()
+        {
+            var length = _game.CellsRef.Length;
+
+            var count = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                var cell = _game.CellsRef[i];
+
+                if (cell.IsRevealed && !cell.IsBomb)
+                {
+                    count += 1;
+                }
+                else if (!cell.IsRevealed && cell.IsBomb && cell.IsFlag)
+                {
+                    count += 1;
+                }
+            }
+
+            return length == count;
         }
 
         private void DispatchStateChangedEvent()

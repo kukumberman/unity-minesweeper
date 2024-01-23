@@ -18,6 +18,7 @@ namespace Kukumberman.Minesweeper.UI
         private Button _btnMenu;
         private Label _txtBombRemaining;
         private Button _btnRestart;
+        private VisualElement _imgStateIcon;
         private Label _txtElapsedTime;
         private VisualElement _grid;
 
@@ -33,6 +34,7 @@ namespace Kukumberman.Minesweeper.UI
 
             _btnMenu = this.Q<Button>("btn-menu");
             _btnRestart = this.Q<Button>("btn-restart");
+            _imgStateIcon = _btnRestart[0];
             _txtBombRemaining = this.Q<Label>("label-bomb-remaining");
             _txtElapsedTime = this.Q<Label>("label-elapsed-time");
             _grid = this.Q<VisualElement>("grid");
@@ -41,6 +43,7 @@ namespace Kukumberman.Minesweeper.UI
             Debug.Assert(_btnRestart != null);
             Debug.Assert(_txtBombRemaining != null);
             Debug.Assert(_txtElapsedTime != null);
+            Debug.Assert(_imgStateIcon != null);
             Debug.Assert(_grid != null);
 
             _btnMenu.clicked += BtnMenu_clicked;
@@ -54,6 +57,7 @@ namespace Kukumberman.Minesweeper.UI
 
             _btnMenu = null;
             _btnRestart = null;
+            _imgStateIcon = null;
             _txtBombRemaining = null;
             _txtElapsedTime = null;
             _grid = null;
@@ -68,6 +72,7 @@ namespace Kukumberman.Minesweeper.UI
         {
             _txtElapsedTime.text = string.Format("{0}", model.ElapsedSeconds);
             _txtBombRemaining.text = string.Format("{0}", model.RemainingBombCount);
+            _imgStateIcon.style.backgroundImage = new StyleBackground(model.StateIconSprite);
         }
 
         private void BtnMenu_clicked()
