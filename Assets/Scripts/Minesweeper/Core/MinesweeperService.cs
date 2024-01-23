@@ -65,6 +65,9 @@ namespace Kukumberman.Minesweeper.Core
             if (cell.IsBomb)
             {
                 _state = EMinesweeperState.Defeat;
+
+                RevealBombs();
+
                 return;
             }
             else if (cell.BombNeighborCount == 0)
@@ -129,6 +132,19 @@ namespace Kukumberman.Minesweeper.Core
             }
         }
 
+        private void RevealBombs()
+        {
+            for (int i = 0, length = _game.CellsRef.Length; i < length; i++)
+            {
+                var cell = _game.CellsRef[i];
+
+                if (cell.IsBomb && !cell.IsFlag)
+                {
+                    cell.IsRevealed = true;
+                }
+            }
+        }
+
         private void CheckIfWin()
         {
             if (IsAboutToWin())
@@ -141,7 +157,10 @@ namespace Kukumberman.Minesweeper.Core
         {
             var length = _game.CellsRef.Length;
 
-            var count = 0;
+            var revealedCount = 0;
+
+            var bombFlagCount = 0;
+            var totalFlagCount = 0;
 
             for (int i = 0; i < length; i++)
             {
@@ -149,15 +168,30 @@ namespace Kukumberman.Minesweeper.Core
 
                 if (cell.IsRevealed && !cell.IsBomb)
                 {
-                    count += 1;
+                    revealedCount += 1;
                 }
                 else if (!cell.IsRevealed && cell.IsBomb && cell.IsFlag)
                 {
-                    count += 1;
+                    bombFlagCount += 1;
+                }
+
+                if (cell.IsFlag)
+                {
+                    totalFlagCount += 1;
                 }
             }
 
-            return length == count;
+            if (length - revealedCount == _game.BombCount)
+            {
+                return true;
+            }
+
+            if (bombFlagCount == _game.BombCount && totalFlagCount == _game.BombCount)
+            {
+                return true;
+            }
+
+            return length == (revealedCount + bombFlagCount);
         }
 
         private void DispatchStateChangedEvent()
