@@ -8,6 +8,8 @@ using Injection;
 using UnityEngine;
 using Kukumberman.Minesweeper.States;
 using Kukumberman.Minesweeper.Core;
+using Kukumberman.Minesweeper.Enums;
+using Kukumberman.Minesweeper.ScriptableObjects;
 
 namespace Kukumberman.Minesweeper.UI
 {
@@ -31,7 +33,7 @@ namespace Kukumberman.Minesweeper.UI
         private GameStateManager _gameStateManager;
 
         [Inject]
-        private MinesweeperStaticDataMono _staticData;
+        private SpriteCollectionScriptableObject _sprites;
 
         [Inject]
         private IMinesweeperService _service;
@@ -73,7 +75,7 @@ namespace Kukumberman.Minesweeper.UI
                 {
                     BombNeighborCount = 0,
                     SpriteForeground = null,
-                    SpriteBackground = _staticData.SpriteCellLocked,
+                    SpriteBackground = _sprites.Get(ESpriteType.CellLocked),
                 };
                 _viewModel.CellModels.Add(model);
             }
@@ -120,16 +122,16 @@ namespace Kukumberman.Minesweeper.UI
                 var cellModel = _viewModel.CellModels[i];
 
                 cellModel.SpriteBackground = cell.IsRevealed
-                    ? _staticData.SpriteCellUnlocked
-                    : _staticData.SpriteCellLocked;
+                    ? _sprites.Get(ESpriteType.CellUnlocked)
+                    : _sprites.Get(ESpriteType.CellLocked);
 
                 if (!cell.IsRevealed && cell.IsFlag)
                 {
-                    cellModel.SpriteForeground = _staticData.SpriteFlag;
+                    cellModel.SpriteForeground = _sprites.Get(ESpriteType.Flag);
                 }
                 else if (cell.IsRevealed && cell.IsBomb)
                 {
-                    cellModel.SpriteForeground = _staticData.SpriteBomb;
+                    cellModel.SpriteForeground = _sprites.Get(ESpriteType.Bomb);
                 }
                 else
                 {

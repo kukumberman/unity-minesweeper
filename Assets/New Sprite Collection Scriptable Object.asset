@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56bc86159f4e1ba4297bffee764e0fad, type: 3}
+  m_Name: New Sprite Collection Scriptable Object
+  m_EditorClassIdentifier: 
+  _sprites:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 21300000, guid: 4886f49ff2e795b45b6c0452b1437494, type: 3}
+    - Key: 2
+      Value: {fileID: 21300000, guid: 1908ef1091c36254892fc20c02d6b419, type: 3}
+    - Key: 3
+      Value: {fileID: 21300000, guid: 4b26ef3cd9fd5c24b9cd9bfb2f15226f, type: 3}
+    - Key: 4
+      Value: {fileID: 21300000, guid: e156f265e8a8202448b413b1e782a53c, type: 3}
+    - Key: 5
+      Value: {fileID: 21300000, guid: ce90e9f5409493a4ea8c23e245210c60, type: 3}

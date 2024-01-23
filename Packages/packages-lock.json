@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "ayellowpaper.serialized-dictionary": {
+      "version": "https://github.com/ayellowpaper/SerializedDictionary.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f3ddbf09e20fc0c55b4468b86ccf05f0f5b04d25"
+    },
     "com.kukumberman.unity-core-template": {
       "version": "https://github.com/kukumberman/Unity-Core-Template.git",
       "depth": 0,

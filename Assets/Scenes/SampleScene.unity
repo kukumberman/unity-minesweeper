@@ -473,7 +473,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _injectionDepth: 0
   _injectableMonoBehaviours: []
-  _injectableScriptableObjects: []
+  _injectableScriptableObjects:
+  - {fileID: 11400000, guid: c02e1c123f15af141a34e912ee23d852, type: 2}
 --- !u!4 &2064514211
 Transform:
   m_ObjectHideFlags: 0
@@ -530,11 +531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UxmlCell: {fileID: 9197481963319205126, guid: f003b113bd7fd8b4e9c956d7c1e6df68, type: 3}
-  SpriteCellLocked: {fileID: 21300000, guid: e156f265e8a8202448b413b1e782a53c, type: 3}
-  SpriteCellUnlocked: {fileID: 21300000, guid: ce90e9f5409493a4ea8c23e245210c60, type: 3}
-  SpriteBomb: {fileID: 21300000, guid: 1908ef1091c36254892fc20c02d6b419, type: 3}
-  SpriteBombCrossmark: {fileID: 21300000, guid: 4b26ef3cd9fd5c24b9cd9bfb2f15226f, type: 3}
-  SpriteFlag: {fileID: 21300000, guid: 4886f49ff2e795b45b6c0452b1437494, type: 3}
 --- !u!114 &2064514215
 MonoBehaviour:
   m_ObjectHideFlags: 0
