@@ -2,6 +2,17 @@
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
             <ui:Button text="Play" name="btn-play" style="width: 300px; height: 150px; font-size: 69px;" />
+            <ui:VisualElement name="container-stage" style="margin-top: 50px;">
+                <ui:Label text="Stage" name="label-stage" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
+                <ui:RadioButtonGroup choices="Newbie — 9x9 (10), RadioButton" style="flex-direction: column; -unity-text-align: middle-center; font-size: 25px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="container-seed" style="margin-top: 25px;">
+                <ui:Label text="Seed" name="label-seed" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="input-seed" style="font-size: 25px; width: 200px;" />
+                    <ui:Button text="Randomize" name="btn-randomize-seed" style="font-size: 25px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

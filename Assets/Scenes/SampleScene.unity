@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overrideInitialState: 1
-  _initialState: 1
+  _initialState: 0
 --- !u!114 &2064514210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +475,7 @@ MonoBehaviour:
   _injectableMonoBehaviours: []
   _injectableScriptableObjects:
   - {fileID: 11400000, guid: c02e1c123f15af141a34e912ee23d852, type: 2}
+  - {fileID: 11400000, guid: 88cc9355d2e65824cac0e7a126bd217a, type: 2}
 --- !u!4 &2064514211
 Transform:
   m_ObjectHideFlags: 0

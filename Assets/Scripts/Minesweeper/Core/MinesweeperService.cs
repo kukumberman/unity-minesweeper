@@ -27,9 +27,10 @@ namespace Kukumberman.Minesweeper.Core
             OnStateChanged.SafeInvoke();
         }
 
-        public void StartGame(MinesweeperGameSettings settings)
+        public void StartGame(MinesweeperGameSettings settings, int seed)
         {
             _game = new MinesweeperGame(settings);
+            _game.Play(seed);
         }
 
         public void RevealCell(int index)

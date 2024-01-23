@@ -28,11 +28,15 @@ namespace Kukumberman.Minesweeper.Core
             _cells = new MinesweeperCell[settings.Width * settings.Height];
 
             _bombCount = settings.BombCount;
-            _random = new Random(settings.Seed);
 
             _enumerableRange = Enumerable.Range(0, _cells.Length).ToArray();
 
             FillEmptyCells();
+        }
+
+        public void Play(int seed = 0)
+        {
+            _random = new Random(seed);
             FillRandomBombs();
         }
 
@@ -57,6 +61,7 @@ namespace Kukumberman.Minesweeper.Core
 
         private void FillRandomBombs()
         {
+            Array.Sort(_enumerableRange);
             _enumerableRange.Shuffle(_random);
 
             for (int i = 0; i < _bombCount; i++)
@@ -96,11 +101,11 @@ namespace Kukumberman.Minesweeper.Core
         public bool IsRevealed;
     }
 
+    [Serializable]
     public sealed class MinesweeperGameSettings
     {
         public int Width;
         public int Height;
         public int BombCount;
-        public int Seed;
     }
 }

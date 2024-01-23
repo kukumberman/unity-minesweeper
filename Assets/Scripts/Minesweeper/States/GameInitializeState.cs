@@ -5,6 +5,7 @@ using Injection;
 using UnityEngine;
 using Kukumberman.Minesweeper.Enums;
 using Kukumberman.Minesweeper.UI;
+using Kukumberman.Minesweeper.ScriptableObjects;
 
 namespace Kukumberman.Minesweeper.States
 {
@@ -18,6 +19,9 @@ namespace Kukumberman.Minesweeper.States
 
         [Inject]
         private GameStateManager _gameStateManager;
+
+        [Inject]
+        private MinesweeperGameConfigScriptableObject _gameConfig;
 
         public override void Initialize()
         {
@@ -63,7 +67,8 @@ namespace Kukumberman.Minesweeper.States
                 case StateType.MainMenu:
                     return new MainMenuState();
                 case StateType.Gameplay:
-                    return new GameplayState();
+                    var seed = 0.ToString().GetHashCode();
+                    return new GameplayState(_gameConfig.Config.Stages[0].Settings, seed);
                 default:
                     Debug.LogWarning(
                         $"Initial switch for state [{_game.InitialState}] is not implemented"

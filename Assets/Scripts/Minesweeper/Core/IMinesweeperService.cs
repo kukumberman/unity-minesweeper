@@ -8,7 +8,7 @@ namespace Kukumberman.Minesweeper.Core
 
         MinesweeperGame Game { get; }
 
-        void StartGame(MinesweeperGameSettings settings);
+        void StartGame(MinesweeperGameSettings settings, int seed);
 
         void RevealCell(int index);
 

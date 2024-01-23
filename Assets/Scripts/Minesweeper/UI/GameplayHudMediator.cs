@@ -48,22 +48,10 @@ namespace Kukumberman.Minesweeper.UI
 
             _service.OnStateChanged += Service_OnStateChanged;
 
-            var gridSize = new Vector2Int(9, 9);
-
-            _service.StartGame(
-                new MinesweeperGameSettings()
-                {
-                    Width = gridSize.x,
-                    Height = gridSize.y,
-                    BombCount = 10,
-                    Seed = 0,
-                }
-            );
-
             _viewModel = new GameplayHudModel
             {
                 ElapsedSeconds = 0,
-                GridSize = gridSize,
+                GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
                 CellModels = new List<CellElementModel>(),
             };
 
