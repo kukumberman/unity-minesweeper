@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="center-flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
-            <ui:VisualElement style="align-items: center;">
+            <ui:VisualElement style="align-items: center; position: absolute;">
                 <ui:VisualElement name="top-flex-wrapper" style="width: 100%; justify-content: space-between; align-items: center; flex-direction: row;">
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
                         <ui:VisualElement name="img-bomb" style="background-image: url(&apos;project://database/Assets/Sprites/bomb.png?fileID=2800000&amp;guid=1908ef1091c36254892fc20c02d6b419&amp;type=3#bomb&apos;); height: 80px; width: 80px;" />
