@@ -75,5 +75,10 @@ namespace Kukumberman.Minesweeper.UI.Elements
             _imgForeground.style.display = sprite != null ? DisplayStyle.Flex : DisplayStyle.None;
             _imgForeground.style.backgroundImage = new StyleBackground(sprite);
         }
+
+        public void SetInteractive(bool interactive)
+        {
+            this.EnableInClassList("cell-interactive", interactive);
+        }
     }
 }

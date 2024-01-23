@@ -16,6 +16,7 @@ namespace Kukumberman.Minesweeper.UI
 {
     public sealed class GameplayHudModel : Observable
     {
+        public EMinesweeperState State;
         public int RemainingBombCount;
         public int ElapsedSeconds;
         public Sprite StateIconSprite;
@@ -60,6 +61,7 @@ namespace Kukumberman.Minesweeper.UI
 
             _viewModel = new GameplayHudModel
             {
+                State = _service.State,
                 RemainingBombCount = GetRemainingBombCount(),
                 ElapsedSeconds = 0,
                 GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
@@ -183,6 +185,7 @@ namespace Kukumberman.Minesweeper.UI
                 cellModel.SetChanged();
             }
 
+            _viewModel.State = _service.State;
             _viewModel.RemainingBombCount = GetRemainingBombCount();
             _viewModel.StateIconSprite = GetStateIconSprite(_service.State);
             _viewModel.SetChanged();

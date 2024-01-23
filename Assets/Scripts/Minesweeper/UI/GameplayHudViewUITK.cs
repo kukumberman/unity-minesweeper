@@ -2,6 +2,7 @@ using System;
 using Game.UI.Hud;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Kukumberman.Minesweeper.Core;
 using Kukumberman.Minesweeper.UI.Elements;
 
 namespace Kukumberman.Minesweeper.UI
@@ -73,6 +74,15 @@ namespace Kukumberman.Minesweeper.UI
             _txtElapsedTime.text = string.Format("{0}", model.ElapsedSeconds);
             _txtBombRemaining.text = string.Format("{0}", model.RemainingBombCount);
             _imgStateIcon.style.backgroundImage = new StyleBackground(model.StateIconSprite);
+
+            var interactive = model.State == EMinesweeperState.Playing;
+
+            _grid
+                .Query<CellElement>()
+                .ForEach(cell =>
+                {
+                    cell.SetInteractive(interactive);
+                });
         }
 
         private void BtnMenu_clicked()
