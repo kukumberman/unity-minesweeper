@@ -36,6 +36,9 @@ namespace Kukumberman.Minesweeper.UI
         private MinesweeperGameConfigScriptableObject _gameConfig;
 
         [Inject]
+        private MinesweeperGameModel _gameModel;
+
+        [Inject]
         private BlurEffectBehaviour _blurEffect;
 
         private MainMenuHudModel _viewModel;
@@ -54,6 +57,13 @@ namespace Kukumberman.Minesweeper.UI
                 StageNames = _gameConfig.Config.Stages.Select(StageToDisplayString).ToArray(),
                 Background = _blurEffect.Result,
             };
+
+            _viewModel.SeedAsText = _gameModel.SeedAsText;
+            _viewModel.SelectedStageIndex = Mathf.Clamp(
+                _gameModel.SelectedStageIndex,
+                0,
+                _gameConfig.Config.Stages.Count
+            );
 
             _view.Model = _viewModel;
         }
@@ -78,18 +88,27 @@ namespace Kukumberman.Minesweeper.UI
         {
             _viewModel.SeedAsText = GenerateRandomSeed();
             _viewModel.SetChanged();
+
+            _gameModel.SeedAsText = _viewModel.SeedAsText;
+            _gameModel.Save();
         }
 
         private void View_OnSeedInputFieldValueChanged(string newValue)
         {
             _viewModel.SeedAsText = newValue;
             _viewModel.SetChanged();
+
+            _gameModel.SeedAsText = _viewModel.SeedAsText;
+            _gameModel.Save();
         }
 
         private void View_OnSelectedStageIndexChanged(int index)
         {
             _viewModel.SelectedStageIndex = index;
             _viewModel.SetChanged();
+
+            _gameModel.SelectedStageIndex = _viewModel.SelectedStageIndex;
+            _gameModel.Save();
         }
 
         private static string GenerateRandomSeed()

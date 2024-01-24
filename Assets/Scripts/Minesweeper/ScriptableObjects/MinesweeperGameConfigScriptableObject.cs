@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Config;
 using UnityEngine;
 using Kukumberman.Minesweeper.Core;
 
@@ -15,7 +16,7 @@ namespace Kukumberman.Minesweeper.ScriptableObjects
     }
 
     [Serializable]
-    public sealed class MinesweeperGameConfig
+    public sealed class MinesweeperGameConfig : GameConfig
     {
         public List<MinesweeperStage> Stages;
     }

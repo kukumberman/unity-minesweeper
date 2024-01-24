@@ -1,4 +1,5 @@
 using Game.Core.UI;
+using Game.Domain;
 using Game.Managers;
 using Game.States;
 using Injection;
@@ -25,6 +26,9 @@ namespace Kukumberman.Minesweeper.States
 
         public override void Initialize()
         {
+            var gameModel = GameModel.Load<MinesweeperGameModel>(_gameConfig.Config);
+            _context.Install(gameModel);
+
             var hudManagerService = new HudManagerService()
             {
                 UGUI = _context.GetByName("HudManager_UGUI") as HudManager,
