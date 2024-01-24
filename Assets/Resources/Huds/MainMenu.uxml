@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 100%; height: 100%;">
-        <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop;" />
+        <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
         <ui:VisualElement name="flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
             <ui:Button text="Play" name="btn-play" style="width: 300px; height: 150px; font-size: 69px;" />
             <ui:VisualElement name="container-stage" style="margin-top: 50px;">

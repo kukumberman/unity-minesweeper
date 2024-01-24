@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 100%; height: 100%;">
-        <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop;" />
+        <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
         <ui:VisualElement name="center-flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
             <ui:VisualElement style="align-items: center; position: absolute;">
                 <ui:VisualElement name="top-flex-wrapper" style="width: 100%; justify-content: space-between; align-items: center; flex-direction: row;">
