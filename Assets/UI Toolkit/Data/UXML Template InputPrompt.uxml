@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Kukumberman.Minesweeper.UI.Elements.InputPromptElement picking-mode="Ignore" style="flex-direction: row; align-items: center; height: 150px;">
+        <ui:VisualElement picking-mode="Ignore" style="background-image: url(&apos;project://database/Assets/Sprites/Xelu_Free_Controller&amp;Key_Prompts/Mouse%20Move.png?fileID=2800000&amp;guid=2f8485884fdf30044b1b02bb7c2feabe&amp;type=3#Mouse Move&apos;); width: 215px; height: 215px; -unity-background-scale-mode: scale-to-fit; scale: 0.5 0.5; translate: -25px 0;" />
+        <ui:Label text="Just a placeholder text" picking-mode="Ignore" style="-unity-text-align: middle-left; font-size: 25px; align-items: flex-start; translate: -60px 0; color: rgb(255, 255, 255); width: 275px; white-space: normal;" />
+    </Kukumberman.Minesweeper.UI.Elements.InputPromptElement>
+</ui:UXML>

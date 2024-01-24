@@ -23,14 +23,18 @@ namespace Kukumberman.Minesweeper.UI
         public Texture2D Background;
         public Vector2Int GridSize;
         public List<CellElementModel> CellModels;
+        public List<InputPromptElementModel> InputPromptModels;
     }
 
     public interface IGameplayHudView : IHudWithModel<GameplayHudModel>
     {
         event Action OnMenuButtonClicked;
         event Action OnRestartButtonClicked;
+        event Action OnHelpButtonClicked;
         event Action<int> OnCellClicked;
         event Action<int> OnCellAsFlagClicked;
+
+        void ToggleHelpPanel();
     }
 
     public sealed class GameplayHudMediator : Mediator<IGameplayHudView>
@@ -56,6 +60,7 @@ namespace Kukumberman.Minesweeper.UI
         {
             _view.OnMenuButtonClicked += View_OnMenuButtonClicked;
             _view.OnRestartButtonClicked += View_OnRestartButtonClicked;
+            _view.OnHelpButtonClicked += View_OnHelpButtonClicked;
             _view.OnCellClicked += View_OnCellClicked;
             _view.OnCellAsFlagClicked += View_OnCellAsFlagClicked;
 
@@ -70,6 +75,29 @@ namespace Kukumberman.Minesweeper.UI
                 ElapsedSeconds = 0,
                 GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
                 CellModels = new List<CellElementModel>(),
+                InputPromptModels = new List<InputPromptElementModel>()
+                {
+                    new InputPromptElementModel()
+                    {
+                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseLeft),
+                        Text = "Click to reveal cell",
+                    },
+                    new InputPromptElementModel()
+                    {
+                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseRight),
+                        Text = "Click to set flag",
+                    },
+                    new InputPromptElementModel()
+                    {
+                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseWheel),
+                        Text = "Scroll to zoom in/out",
+                    },
+                    new InputPromptElementModel()
+                    {
+                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseMove),
+                        Text = "Hold and drag to pan view",
+                    },
+                },
                 StateIconSprite = GetStateIconSprite(_service.State),
                 Background = _blurEffect.Result,
             };
@@ -95,6 +123,7 @@ namespace Kukumberman.Minesweeper.UI
         {
             _view.OnMenuButtonClicked -= View_OnMenuButtonClicked;
             _view.OnRestartButtonClicked -= View_OnRestartButtonClicked;
+            _view.OnHelpButtonClicked -= View_OnHelpButtonClicked;
             _view.OnCellClicked -= View_OnCellClicked;
             _view.OnCellAsFlagClicked -= View_OnCellAsFlagClicked;
 
@@ -114,6 +143,11 @@ namespace Kukumberman.Minesweeper.UI
             _viewModel.SetChanged();
 
             _service.Restart();
+        }
+
+        private void View_OnHelpButtonClicked()
+        {
+            _view.ToggleHelpPanel();
         }
 
         private void View_OnCellClicked(int index)

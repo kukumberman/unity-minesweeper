@@ -11,5 +11,9 @@
         DogPatron,
         Defeat,
         Win,
+        InputPromptMouseLeft,
+        InputPromptMouseRight,
+        InputPromptMouseWheel,
+        InputPromptMouseMove,
     }
 }

@@ -847,6 +847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UxmlCell: {fileID: 9197481963319205126, guid: f003b113bd7fd8b4e9c956d7c1e6df68, type: 3}
+  UxmlInputPrompt: {fileID: 9197481963319205126, guid: 0eeb9c9e4d8124749964225e8427fb7c, type: 3}
 --- !u!114 &2064514215
 MonoBehaviour:
   m_ObjectHideFlags: 0

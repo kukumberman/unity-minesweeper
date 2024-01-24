@@ -5,6 +5,8 @@ namespace Kukumberman.Minesweeper
 {
     public sealed class MinesweeperStaticDataMono : MonoBehaviour
     {
+        [Header("UXML")]
         public VisualTreeAsset UxmlCell;
+        public VisualTreeAsset UxmlInputPrompt;
     }
 }

@@ -13,6 +13,7 @@ namespace Kukumberman.Minesweeper.UI
     {
         public event Action OnMenuButtonClicked;
         public event Action OnRestartButtonClicked;
+        public event Action OnHelpButtonClicked;
         public event Action<int> OnCellClicked;
         public event Action<int> OnCellAsFlagClicked;
 
@@ -26,18 +27,26 @@ namespace Kukumberman.Minesweeper.UI
         private VisualElement _elementToReceiveDrag;
         private VisualElement _topBar;
         private VisualElement _imgBackground;
+        private VisualElement _contentListInputPrompts;
+        private VisualElement _btnHelp;
+        private VisualElement _helpPanel;
 
         private VisualTreeAsset _uxmlCell;
+        private VisualTreeAsset _uxmlInputPrompt;
 
         private const int kCellSize = 100;
         private const int kClickThresholdMs = 100;
         private const float kMinScale = 0.5f;
         private const float kMaxScale = 2f;
+        private const int kHelpPanelLeftWhenVisible = 50;
+        private const int kHelpPanelLeftWhenHidden = -400;
 
         private VisualElement _clickedCell;
         private bool _isDragging;
         private DateTime _clickedAtTime;
         private Vector3 _clickRelativeOffset;
+
+        private bool _isPanelVisible;
 
         protected override void OnEnable()
         {
@@ -46,6 +55,7 @@ namespace Kukumberman.Minesweeper.UI
             // and GameplayHudModel should not contain UXML data
             var staticData = GameObject.FindObjectOfType<MinesweeperStaticDataMono>();
             _uxmlCell = staticData.UxmlCell;
+            _uxmlInputPrompt = staticData.UxmlInputPrompt;
 
             _btnMenu = this.Q<Button>("btn-menu");
             _btnRestart = this.Q<Button>("btn-restart");
@@ -57,6 +67,9 @@ namespace Kukumberman.Minesweeper.UI
             _elementToReceiveDrag = _gridParent.parent;
             _topBar = _gridParent[0];
             _imgBackground = this.Q<VisualElement>("img-background");
+            _contentListInputPrompts = this.Q<VisualElement>("list");
+            _btnHelp = this.Q<VisualElement>("btn-help");
+            _helpPanel = this.Q<VisualElement>("help-panel");
 
             Debug.Assert(_btnMenu != null);
             Debug.Assert(_btnRestart != null);
@@ -65,9 +78,13 @@ namespace Kukumberman.Minesweeper.UI
             Debug.Assert(_imgStateIcon != null);
             Debug.Assert(_grid != null);
             Debug.Assert(_imgBackground != null);
+            Debug.Assert(_contentListInputPrompts != null);
+            Debug.Assert(_btnHelp != null);
+            Debug.Assert(_helpPanel != null);
 
             _btnMenu.clicked += BtnMenu_clicked;
             _btnRestart.clicked += BtnRestart_clicked;
+            _btnHelp.RegisterCallback<ClickEvent>(BtnHelpClickEventHandler);
         }
 
         protected override void OnDisable()
@@ -85,6 +102,12 @@ namespace Kukumberman.Minesweeper.UI
             _elementToReceiveDrag = null;
             _topBar = null;
             _imgBackground = null;
+
+            _contentListInputPrompts.Clear();
+            _contentListInputPrompts = null;
+            _btnHelp.UnregisterCallback<ClickEvent>(BtnHelpClickEventHandler);
+            _btnHelp = null;
+            _helpPanel = null;
         }
 
         protected override void OnApplyModel(GameplayHudModel model)
@@ -92,6 +115,7 @@ namespace Kukumberman.Minesweeper.UI
             _imgBackground.style.backgroundImage = new StyleBackground(model.Background);
 
             CreateSimpleGrid();
+            CreateInputPrompts();
         }
 
         protected override void OnModelChanged(GameplayHudModel model)
@@ -110,6 +134,11 @@ namespace Kukumberman.Minesweeper.UI
                 });
         }
 
+        void IGameplayHudView.ToggleHelpPanel()
+        {
+            SetHelpPanelVisibleState(!_isPanelVisible);
+        }
+
         private void BtnMenu_clicked()
         {
             OnMenuButtonClicked.SafeInvoke();
@@ -118,6 +147,11 @@ namespace Kukumberman.Minesweeper.UI
         private void BtnRestart_clicked()
         {
             OnRestartButtonClicked.SafeInvoke();
+        }
+
+        private void BtnHelpClickEventHandler(ClickEvent evt)
+        {
+            OnHelpButtonClicked.SafeInvoke();
         }
 
         private void CellPointerDownEventHandler(PointerDownEvent evt)
@@ -279,6 +313,33 @@ namespace Kukumberman.Minesweeper.UI
             position.y = Mathf.Clamp(position.y, min.y, max.y);
 
             return position;
+        }
+
+        private void CreateInputPrompts()
+        {
+            _contentListInputPrompts.Clear();
+
+            for (int i = 0; i < Model.InputPromptModels.Count; i++)
+            {
+                var element = _uxmlInputPrompt.Instantiate()[0] as InputPromptElement;
+
+                foreach (var styleSheet in _uxmlInputPrompt.stylesheets)
+                {
+                    element.styleSheets.Add(styleSheet);
+                }
+
+                element.Setup();
+                element.Model = Model.InputPromptModels[i];
+                _contentListInputPrompts.Add(element);
+            }
+        }
+
+        private void SetHelpPanelVisibleState(bool visible)
+        {
+            var value = visible ? kHelpPanelLeftWhenVisible : kHelpPanelLeftWhenHidden;
+            _helpPanel.style.left = new StyleLength(new Length(value, LengthUnit.Pixel));
+
+            _isPanelVisible = visible;
         }
     }
 }
