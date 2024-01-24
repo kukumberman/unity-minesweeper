@@ -15,5 +15,10 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="memes" picking-mode="Ignore" style="position: absolute; width: 100%; height: 100%;">
+            <ui:VisualElement picking-mode="Ignore" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-Patron.png?fileID=2800000&amp;guid=a507d15f1eab4774491bfc5b3518fb78&amp;type=3#meme-Dog-Patron&apos;); width: 409px; height: 610px; left: 100px; top: 50%; translate: 0 -50%; transform-origin: left;" />
+            <ui:VisualElement picking-mode="Ignore" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Arihovich.png?fileID=2800000&amp;guid=c3581506893013d458dacf8aec8d48d5&amp;type=3#meme-Arihovich&apos;); bottom: 0; height: 456px; width: 547px; translate: -50% 0; left: 69%; scale: 0.69 0.69; transform-origin: bottom;" />
+            <ui:VisualElement style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-female.png?fileID=2800000&amp;guid=1e37fa9999d96674cab7ee603335a89b&amp;type=3#meme-Dog-female&apos;); width: 433px; height: 577px; top: 50%; translate: 0 -50%; scale: -1.3 1.3; right: 100px; transform-origin: center;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
