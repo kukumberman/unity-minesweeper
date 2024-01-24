@@ -5,6 +5,7 @@ using Game.Core.UI;
 using Game.States;
 using Game.UI.Hud;
 using Injection;
+using UnityEngine;
 using Kukumberman.Minesweeper.States;
 using Kukumberman.Minesweeper.ScriptableObjects;
 
@@ -15,6 +16,7 @@ namespace Kukumberman.Minesweeper.UI
         public string SeedAsText;
         public int SelectedStageIndex;
         public string[] StageNames;
+        public Texture2D Background;
     }
 
     public interface IMainMenuHudView : IHudWithModel<MainMenuHudModel>
@@ -33,6 +35,9 @@ namespace Kukumberman.Minesweeper.UI
         [Inject]
         private MinesweeperGameConfigScriptableObject _gameConfig;
 
+        [Inject]
+        private BlurEffectBehaviour _blurEffect;
+
         private MainMenuHudModel _viewModel;
 
         protected override void Show()
@@ -45,7 +50,9 @@ namespace Kukumberman.Minesweeper.UI
             _viewModel = new MainMenuHudModel()
             {
                 SeedAsText = 0.ToString(),
+                SelectedStageIndex = 0,
                 StageNames = _gameConfig.Config.Stages.Select(StageToDisplayString).ToArray(),
+                Background = _blurEffect.Result,
             };
 
             _view.Model = _viewModel;

@@ -20,6 +20,7 @@ namespace Kukumberman.Minesweeper.UI
         public int RemainingBombCount;
         public int ElapsedSeconds;
         public Sprite StateIconSprite;
+        public Texture2D Background;
         public Vector2Int GridSize;
         public List<CellElementModel> CellModels;
     }
@@ -46,6 +47,9 @@ namespace Kukumberman.Minesweeper.UI
         [Inject]
         private Timer _timer;
 
+        [Inject]
+        private BlurEffectBehaviour _blurEffect;
+
         private GameplayHudModel _viewModel;
 
         protected override void Show()
@@ -67,6 +71,7 @@ namespace Kukumberman.Minesweeper.UI
                 GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
                 CellModels = new List<CellElementModel>(),
                 StateIconSprite = GetStateIconSprite(_service.State),
+                Background = _blurEffect.Result,
             };
 
             for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)

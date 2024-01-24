@@ -18,6 +18,7 @@ namespace Kukumberman.Minesweeper.UI
         private TextField _inputFieldSeed;
         private Button _btnRandomizeSeed;
         private RadioButtonGroup _radioButtonGroup;
+        private VisualElement _imgBackground;
 
         protected override void OnEnable()
         {
@@ -25,11 +26,13 @@ namespace Kukumberman.Minesweeper.UI
             _btnRandomizeSeed = this.Q<Button>("btn-randomize-seed");
             _inputFieldSeed = this.Q<TextField>("input-seed");
             _radioButtonGroup = this.Q<RadioButtonGroup>();
+            _imgBackground = this.Q<VisualElement>("img-background");
 
             Debug.Assert(_btnPlay != null);
             Debug.Assert(_btnRandomizeSeed != null);
             Debug.Assert(_inputFieldSeed != null);
             Debug.Assert(_radioButtonGroup != null);
+            Debug.Assert(_imgBackground != null);
 
             _btnPlay.clicked += BtnPlay_clicked;
             _btnRandomizeSeed.clicked += BtnRandomizeSeed_clicked;
@@ -52,10 +55,12 @@ namespace Kukumberman.Minesweeper.UI
             _btnRandomizeSeed = null;
             _inputFieldSeed = null;
             _radioButtonGroup = null;
+            _imgBackground = null;
         }
 
         protected override void OnApplyModel(MainMenuHudModel model)
         {
+            _imgBackground.style.backgroundImage = new StyleBackground(model.Background);
             _radioButtonGroup.choices = model.StageNames;
         }
 

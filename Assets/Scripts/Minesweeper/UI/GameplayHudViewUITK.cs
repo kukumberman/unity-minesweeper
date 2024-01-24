@@ -25,6 +25,7 @@ namespace Kukumberman.Minesweeper.UI
         private VisualElement _gridParent;
         private VisualElement _elementToReceiveDrag;
         private VisualElement _topBar;
+        private VisualElement _imgBackground;
 
         private VisualTreeAsset _uxmlCell;
 
@@ -55,6 +56,7 @@ namespace Kukumberman.Minesweeper.UI
             _gridParent = _grid.parent;
             _elementToReceiveDrag = _gridParent.parent;
             _topBar = _gridParent[0];
+            _imgBackground = this.Q<VisualElement>("img-background");
 
             Debug.Assert(_btnMenu != null);
             Debug.Assert(_btnRestart != null);
@@ -62,6 +64,7 @@ namespace Kukumberman.Minesweeper.UI
             Debug.Assert(_txtElapsedTime != null);
             Debug.Assert(_imgStateIcon != null);
             Debug.Assert(_grid != null);
+            Debug.Assert(_imgBackground != null);
 
             _btnMenu.clicked += BtnMenu_clicked;
             _btnRestart.clicked += BtnRestart_clicked;
@@ -81,10 +84,13 @@ namespace Kukumberman.Minesweeper.UI
             _gridParent = null;
             _elementToReceiveDrag = null;
             _topBar = null;
+            _imgBackground = null;
         }
 
         protected override void OnApplyModel(GameplayHudModel model)
         {
+            _imgBackground.style.backgroundImage = new StyleBackground(model.Background);
+
             CreateSimpleGrid();
         }
 
