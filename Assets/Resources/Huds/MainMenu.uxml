@@ -1,22 +1,25 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
+        <ui:VisualElement picking-mode="Ignore" name="img-logo" style="position: absolute; width: 1920px; height: 1080px; background-image: url(&apos;project://database/Assets/Sprites/logo.png?fileID=2800000&amp;guid=c3638f159d89c18478f8de6aa1d7ef90&amp;type=3#Untitled-1&apos;); -unity-background-scale-mode: scale-to-fit; translate: 0 -69px;" />
         <ui:VisualElement name="flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
-            <ui:Button text="Play" name="btn-play" style="width: 300px; height: 150px; font-size: 69px;" />
-            <ui:VisualElement name="container-stage" style="margin-top: 50px;">
-                <ui:Label text="Stage" name="label-stage" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
-                <ui:RadioButtonGroup choices="Newbie — 9x9 (10), RadioButton" style="flex-direction: column; -unity-text-align: middle-center; font-size: 25px;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="container-seed" style="margin-top: 25px;">
-                <ui:Label text="Seed" name="label-seed" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="input-seed" style="font-size: 25px; width: 200px;" />
-                    <ui:Button text="Randomize" name="btn-randomize-seed" style="font-size: 25px;" />
+            <ui:VisualElement style="align-items: center; justify-content: center; translate: 0 100px;">
+                <ui:Button text="Play" name="btn-play" style="width: 300px; height: 150px; font-size: 69px;" />
+                <ui:VisualElement name="container-stage" style="margin-top: 50px;">
+                    <ui:Label text="Stage" name="label-stage" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
+                    <ui:RadioButtonGroup choices="Newbie — 9x9 (10), RadioButton" style="flex-direction: column; -unity-text-align: middle-center; font-size: 25px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="container-seed" style="margin-top: 25px;">
+                    <ui:Label text="Seed" name="label-seed" style="-unity-text-align: middle-center; font-size: 30px; -unity-font-style: bold;" />
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="input-seed" style="font-size: 25px; width: 200px;" />
+                        <ui:Button text="Randomize" name="btn-randomize-seed" style="font-size: 25px;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="memes" picking-mode="Ignore" style="position: absolute; width: 100%; height: 100%;">
-            <ui:VisualElement picking-mode="Ignore" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-Patron.png?fileID=2800000&amp;guid=a507d15f1eab4774491bfc5b3518fb78&amp;type=3#meme-Dog-Patron&apos;); width: 409px; height: 610px; left: 100px; top: 50%; translate: 0 -50%; transform-origin: left;" />
+            <ui:VisualElement picking-mode="Ignore" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-Patron.png?fileID=2800000&amp;guid=a507d15f1eab4774491bfc5b3518fb78&amp;type=3#meme-Dog-Patron&apos;); width: 409px; height: 610px; left: 100px; top: 50%; translate: 0 -25%; transform-origin: left;" />
             <ui:VisualElement picking-mode="Ignore" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Arihovich.png?fileID=2800000&amp;guid=c3581506893013d458dacf8aec8d48d5&amp;type=3#meme-Arihovich&apos;); bottom: 0; height: 456px; width: 547px; translate: -50% 0; left: 69%; scale: 0.69 0.69; transform-origin: bottom;" />
             <ui:VisualElement style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-female.png?fileID=2800000&amp;guid=1e37fa9999d96674cab7ee603335a89b&amp;type=3#meme-Dog-female&apos;); width: 433px; height: 577px; top: 50%; translate: 0 -50%; scale: -1.3 1.3; right: 100px; transform-origin: center;" />
         </ui:VisualElement>
