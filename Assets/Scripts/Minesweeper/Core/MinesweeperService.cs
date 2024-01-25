@@ -126,6 +126,7 @@ namespace Kukumberman.Minesweeper.Core
                     var neighborCell = _game.CellsRef[index];
                     queue.Enqueue(new Vector2Int(neighborCell.X, neighborCell.Y));
                     neighborCell.IsRevealed = true;
+                    neighborCell.IsFlag = false;
                 }
 
                 indexes.Clear();
