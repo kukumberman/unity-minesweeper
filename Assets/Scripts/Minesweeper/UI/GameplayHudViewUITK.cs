@@ -35,7 +35,7 @@ namespace Kukumberman.Minesweeper.UI
         private VisualTreeAsset _uxmlInputPrompt;
 
         private const int kCellSize = 100;
-        private const int kClickThresholdMs = 100;
+        private const int kClickThresholdMs = 200;
         private const float kMinScale = 0.5f;
         private const float kMaxScale = 2f;
         private const int kHelpPanelLeftWhenVisible = 50;

@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overrideInitialState: 1
-  _initialState: 1
+  _initialState: 0
 --- !u!114 &2064514210
 MonoBehaviour:
   m_ObjectHideFlags: 0
