@@ -16,6 +16,15 @@
       },
       "hash": "3e68e683ca341f5720e75028f3bc07b60f19fbbc"
     },
+    "com.kukumberman.unity-webgl-utils": {
+      "version": "https://github.com/kukumberman/Unity-Webgl-Utils.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.1.0"
+      },
+      "hash": "e72242f46a9480a977ff8a8d035daae0b268225d"
+    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
