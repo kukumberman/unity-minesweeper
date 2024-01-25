@@ -7,6 +7,7 @@ using UnityEngine;
 using Kukumberman.Minesweeper.Enums;
 using Kukumberman.Minesweeper.UI;
 using Kukumberman.Minesweeper.ScriptableObjects;
+using Kukumberman.Minesweeper.Managers;
 
 namespace Kukumberman.Minesweeper.States
 {
@@ -24,10 +25,15 @@ namespace Kukumberman.Minesweeper.States
         [Inject]
         private MinesweeperGameConfigScriptableObject _gameConfig;
 
+        [Inject]
+        private MinesweeperStaticDataMono _staticData;
+
         public override void Initialize()
         {
             var gameModel = GameModel.Load<MinesweeperGameModel>(_gameConfig.Config);
             _context.Install(gameModel);
+
+            _context.Install(new LocalizationManager());
 
             var hudManagerService = new HudManagerService()
             {
@@ -49,6 +55,13 @@ namespace Kukumberman.Minesweeper.States
                 hudFactory.Bind(typeof(IMainMenuHudView), () => new MainMenuHudViewUITK());
                 hudFactory.Bind(typeof(IGameplayHudView), () => new GameplayHudViewUITK());
             }
+
+            _context.ApplyInstall();
+
+            _context.Get<SpriteStorage>().Initialize();
+            _context
+                .Get<LocalizationManager>()
+                .CreateFromJson(_staticData.LocalizationJsonTextAsset.text);
 
             var nextState = GetNextState();
             _gameStateManager.SwitchToState(nextState);

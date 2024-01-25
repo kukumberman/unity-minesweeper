@@ -8,5 +8,9 @@ namespace Kukumberman.Minesweeper
         [Header("UXML")]
         public VisualTreeAsset UxmlCell;
         public VisualTreeAsset UxmlInputPrompt;
+        public VisualTreeAsset UxmlLanguageCollectionItemElement;
+
+        [Space]
+        public TextAsset LocalizationJsonTextAsset;
     }
 }

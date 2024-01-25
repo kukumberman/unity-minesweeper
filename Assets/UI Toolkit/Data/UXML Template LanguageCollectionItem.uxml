@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Kukumberman.Minesweeper.UI.Elements.LanguageCollectionItemElement style="margin-left: 10px; margin-right: 10px; width: 106px; height: 87px;">
+        <ui:VisualElement style="width: 100%; height: 100%;">
+            <ui:VisualElement name="img-selection" style="background-image: url(&apos;project://database/Assets/Sprites/UI/CountryFlag/Language_Flag_l_00_Frame_Focus_White.png?fileID=2800000&amp;guid=4d60e3b107bd61d4586f07059672699a&amp;type=3#Language_Flag_l_00_Frame_Focus_White&apos;); width: 100%; height: 100%; position: absolute; -unity-background-image-tint-color: rgba(255, 0, 0, 255);" />
+            <ui:VisualElement name="img-flag" style="background-image: url(&apos;project://database/Assets/Sprites/UI/CountryFlag/Language_Flag_l_Eng.Png?fileID=2800000&amp;guid=5586fa7e290f8764fb03368e0b44d8b7&amp;type=3#Language_Flag_l_Eng&apos;); width: 100%; height: 100%; position: absolute;" />
+        </ui:VisualElement>
+    </Kukumberman.Minesweeper.UI.Elements.LanguageCollectionItemElement>
+</ui:UXML>

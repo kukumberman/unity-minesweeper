@@ -11,11 +11,17 @@ using Kukumberman.Minesweeper.States;
 using Kukumberman.Minesweeper.Core;
 using Kukumberman.Minesweeper.Enums;
 using Kukumberman.Minesweeper.ScriptableObjects;
+using Kukumberman.Minesweeper.Managers;
 
 namespace Kukumberman.Minesweeper.UI
 {
     public sealed class GameplayHudModel : Observable
     {
+        public sealed class Localization
+        {
+            public string LabelMenu;
+        }
+
         public EMinesweeperState State;
         public int RemainingBombCount;
         public int ElapsedSeconds;
@@ -24,6 +30,8 @@ namespace Kukumberman.Minesweeper.UI
         public Vector2Int GridSize;
         public List<CellElementModel> CellModels;
         public List<InputPromptElementModel> InputPromptModels;
+
+        public Localization I18N;
     }
 
     public interface IGameplayHudView : IHudWithModel<GameplayHudModel>
@@ -54,6 +62,9 @@ namespace Kukumberman.Minesweeper.UI
         [Inject]
         private BlurEffectBehaviour _blurEffect;
 
+        [Inject]
+        private LocalizationManager _localizationManager;
+
         private GameplayHudModel _viewModel;
 
         protected override void Show()
@@ -75,31 +86,10 @@ namespace Kukumberman.Minesweeper.UI
                 ElapsedSeconds = 0,
                 GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
                 CellModels = new List<CellElementModel>(),
-                InputPromptModels = new List<InputPromptElementModel>()
-                {
-                    new InputPromptElementModel()
-                    {
-                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseLeft),
-                        Text = "Click to reveal cell",
-                    },
-                    new InputPromptElementModel()
-                    {
-                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseRight),
-                        Text = "Click to set flag",
-                    },
-                    new InputPromptElementModel()
-                    {
-                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseWheel),
-                        Text = "Scroll to zoom in/out",
-                    },
-                    new InputPromptElementModel()
-                    {
-                        Sprite = _sprites.Get(ESpriteType.InputPromptMouseMove),
-                        Text = "Hold and drag to pan view",
-                    },
-                },
+                InputPromptModels = new List<InputPromptElementModel>(),
                 StateIconSprite = GetStateIconSprite(_service.State),
                 Background = _blurEffect.Result,
+                I18N = new GameplayHudModel.Localization(),
             };
 
             for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)
@@ -116,6 +106,10 @@ namespace Kukumberman.Minesweeper.UI
                 _viewModel.CellModels.Add(model);
             }
 
+            PopulateInputPromptModels();
+
+            PopulateLocalizedText();
+
             _view.Model = _viewModel;
         }
 
@@ -130,6 +124,33 @@ namespace Kukumberman.Minesweeper.UI
             _service.OnStateChanged -= Service_OnStateChanged;
 
             _timer.ONE_SECOND_TICK -= Timer_ONE_SECOND_TICK;
+        }
+
+        private void PopulateInputPromptModels()
+        {
+            var arr = new ESpriteType[]
+            {
+                ESpriteType.InputPromptMouseLeft,
+                ESpriteType.InputPromptMouseRight,
+                ESpriteType.InputPromptMouseWheel,
+                ESpriteType.InputPromptMouseMove,
+            };
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                var key = string.Format("tutorial_{0}", i + 1);
+                var model = new InputPromptElementModel()
+                {
+                    Sprite = _sprites.Get(arr[i]),
+                    Text = _localizationManager.GetValue(key),
+                };
+                _viewModel.InputPromptModels.Add(model);
+            }
+        }
+
+        private void PopulateLocalizedText()
+        {
+            _viewModel.I18N.LabelMenu = _localizationManager.GetValue("button_menu");
         }
 
         private void View_OnMenuButtonClicked()

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdaec886b47a2c74ca3e565313764f44, type: 3}
+  m_Name: New Sprite Storage
+  m_EditorClassIdentifier: 
+  Items:
+  - Key: flag_English
+    Value: {fileID: 21300000, guid: 5586fa7e290f8764fb03368e0b44d8b7, type: 3}
+  - Key: flag_Ukrainian
+    Value: {fileID: 21300000, guid: 211982a0646a3174b8f53c7c666fa44b, type: 3}
+  - Key: flag_Polish
+    Value: {fileID: 21300000, guid: 81db38e923c2a694b8721a29752c0551, type: 3}

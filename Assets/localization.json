@@ -1,0 +1,47 @@
+{
+  "English": {
+    "button_play": "PLAY",
+    "label_stage": "Stage",
+    "stage_newbie": "Newbie",
+    "stage_amateur": "Amateur",
+    "stage_professional": "Professional",
+    "label_seed": "Seed",
+    "button_randomize": "Randomize",
+    "label_language": "Language",
+    "button_menu": "Menu",
+    "tutorial_1": "Click to reveal cell",
+    "tutorial_2": "Click to set flag",
+    "tutorial_3": "Scroll to zoom in/out",
+    "tutorial_4": "Hold and drag to pan view"
+  },
+  "Ukrainian": {
+    "button_play": "",
+    "label_stage": "",
+    "stage_newbie": "",
+    "stage_amateur": "",
+    "stage_professional": "",
+    "label_seed": "",
+    "button_randomize": "",
+    "label_language": "",
+    "button_menu": "",
+    "tutorial_1": "",
+    "tutorial_2": "",
+    "tutorial_3": "",
+    "tutorial_4": ""
+  },
+  "Polish": {
+    "button_play": "",
+    "label_stage": "",
+    "stage_newbie": "",
+    "stage_amateur": "",
+    "stage_professional": "",
+    "label_seed": "",
+    "button_randomize": "",
+    "label_language": "",
+    "button_menu": "",
+    "tutorial_1": "",
+    "tutorial_2": "",
+    "tutorial_3": "",
+    "tutorial_4": ""
+  }
+}

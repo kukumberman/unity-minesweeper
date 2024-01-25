@@ -791,6 +791,7 @@ MonoBehaviour:
   _injectableScriptableObjects:
   - {fileID: 11400000, guid: c02e1c123f15af141a34e912ee23d852, type: 2}
   - {fileID: 11400000, guid: 88cc9355d2e65824cac0e7a126bd217a, type: 2}
+  - {fileID: 11400000, guid: c49c4cc4f7c4c5f4ba5d766e9206910f, type: 2}
 --- !u!4 &2064514211
 Transform:
   m_ObjectHideFlags: 0
@@ -848,6 +849,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UxmlCell: {fileID: 9197481963319205126, guid: f003b113bd7fd8b4e9c956d7c1e6df68, type: 3}
   UxmlInputPrompt: {fileID: 9197481963319205126, guid: 0eeb9c9e4d8124749964225e8427fb7c, type: 3}
+  UxmlLanguageCollectionItemElement: {fileID: 9197481963319205126, guid: 4c58fa19508c1b840b4b2a9252269bff, type: 3}
+  LocalizationJsonTextAsset: {fileID: 4900000, guid: 5d884cbc6e40d784a8fef4e81084627b, type: 3}
 --- !u!114 &2064514215
 MonoBehaviour:
   m_ObjectHideFlags: 0

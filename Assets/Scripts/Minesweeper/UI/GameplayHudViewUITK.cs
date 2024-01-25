@@ -132,6 +132,13 @@ namespace Kukumberman.Minesweeper.UI
                 {
                     cell.SetInteractive(interactive);
                 });
+
+            UpdateLocalizedText();
+        }
+
+        private void UpdateLocalizedText()
+        {
+            _btnMenu.text = Model.I18N.LabelMenu;
         }
 
         void IGameplayHudView.ToggleHelpPanel()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.UI.Hud;
+using Kukumberman.Minesweeper.UI.Elements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
@@ -18,12 +19,17 @@ namespace Kukumberman.Minesweeper.UI
         public event Action OnRandomizeSeedButtonClicked;
         public event Action<string> OnSeedInputFieldValueChanged;
         public event Action<int> OnSelectedStageIndexChanged;
+        public event Action<string> OnLanguageItemButtonClicked;
 
         private Button _btnPlay;
         private TextField _inputFieldSeed;
         private Button _btnRandomizeSeed;
         private RadioButtonGroup _radioButtonGroup;
+        private Label _labelStage;
+        private Label _labelSeed;
+        private Label _labelLanguage;
         private VisualElement _imgBackground;
+        private LanguageCollectionElement _languageCollection;
 
         private List<ValueAnimation<float>> _tweens = new();
 
@@ -33,13 +39,21 @@ namespace Kukumberman.Minesweeper.UI
             _btnRandomizeSeed = this.Q<Button>("btn-randomize-seed");
             _inputFieldSeed = this.Q<TextField>("input-seed");
             _radioButtonGroup = this.Q<RadioButtonGroup>();
+            _labelStage = this.Q<Label>("label-stage");
+            _labelSeed = this.Q<Label>("label-seed");
+            _labelLanguage = this.Q<Label>("label-language");
             _imgBackground = this.Q<VisualElement>("img-background");
+            _languageCollection = this.Q<LanguageCollectionElement>();
 
             Debug.Assert(_btnPlay != null);
             Debug.Assert(_btnRandomizeSeed != null);
             Debug.Assert(_inputFieldSeed != null);
             Debug.Assert(_radioButtonGroup != null);
+            Debug.Assert(_labelStage != null);
+            Debug.Assert(_labelSeed != null);
+            Debug.Assert(_labelLanguage != null);
             Debug.Assert(_imgBackground != null);
+            Debug.Assert(_languageCollection != null);
 
             _btnPlay.clicked += BtnPlay_clicked;
             _btnRandomizeSeed.clicked += BtnRandomizeSeed_clicked;
@@ -57,6 +71,9 @@ namespace Kukumberman.Minesweeper.UI
                 tween.OnCompleted(() => tween.Start());
                 _tweens.Add(tween);
             }
+
+            _languageCollection.OnEnable();
+            _languageCollection.OnItemClicked += LanguageCollection_OnItemClicked;
         }
 
         protected override void OnDisable()
@@ -68,10 +85,17 @@ namespace Kukumberman.Minesweeper.UI
                 RadioButtonGroupStageValueChangedHandler
             );
 
+            _languageCollection.OnDisable();
+            _languageCollection.OnItemClicked -= LanguageCollection_OnItemClicked;
+            _languageCollection = null;
+
             _btnPlay = null;
             _btnRandomizeSeed = null;
             _inputFieldSeed = null;
             _radioButtonGroup = null;
+            _labelStage = null;
+            _labelSeed = null;
+            _labelLanguage = null;
             _imgBackground = null;
 
             for (int i = 0; i < _tweens.Count; i++)
@@ -88,12 +112,26 @@ namespace Kukumberman.Minesweeper.UI
         {
             _imgBackground.style.backgroundImage = new StyleBackground(model.Background);
             _radioButtonGroup.choices = model.StageNames;
+            _languageCollection.Model = model.LanguageCollectionModel;
         }
 
         protected override void OnModelChanged(MainMenuHudModel model)
         {
+            _radioButtonGroup.choices = model.StageNames;
+
             _inputFieldSeed.SetValueWithoutNotify(model.SeedAsText);
             _radioButtonGroup.SetValueWithoutNotify(model.SelectedStageIndex);
+
+            UpdateLocalizedText();
+        }
+
+        private void UpdateLocalizedText()
+        {
+            _btnPlay.text = Model.I18N.LabelPlay;
+            _labelStage.text = Model.I18N.LabelStage;
+            _labelSeed.text = Model.I18N.LabelSeed;
+            _labelLanguage.text = Model.I18N.LabelLanguage;
+            _btnRandomizeSeed.text = Model.I18N.LabelRandomizeSeed;
         }
 
         private void BtnPlay_clicked()
@@ -114,6 +152,11 @@ namespace Kukumberman.Minesweeper.UI
         private void RadioButtonGroupStageValueChangedHandler(ChangeEvent<int> evt)
         {
             OnSelectedStageIndexChanged.SafeInvoke(evt.newValue);
+        }
+
+        private void LanguageCollection_OnItemClicked(string language)
+        {
+            OnLanguageItemButtonClicked.SafeInvoke(language);
         }
 
         private ValueAnimation<float> CreateRotationTween(VisualElement element)

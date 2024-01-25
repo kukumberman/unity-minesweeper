@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="UXML Template LanguageCollectionItem" src="project://database/Assets/UI%20Toolkit/Data/UXML%20Template%20LanguageCollectionItem.uxml?fileID=9197481963319205126&amp;guid=4c58fa19508c1b840b4b2a9252269bff&amp;type=3#UXML Template LanguageCollectionItem" />
     <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20MainMenu.uss?fileID=7433441132597879392&amp;guid=edf9da53fff4add4bb3e8cb1a88bcd50&amp;type=3#USS MainMenu" />
     <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20Buttons.uss?fileID=7433441132597879392&amp;guid=d716d25c552436147ac3616116eaa900&amp;type=3#USS Buttons" />
     <ui:VisualElement style="width: 100%; height: 100%;">
@@ -23,11 +24,19 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="memes" picking-mode="Ignore" style="position: absolute; width: 100%; height: 100%;">
-            <ui:VisualElement class="meme" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-Patron.png?fileID=2800000&amp;guid=a507d15f1eab4774491bfc5b3518fb78&amp;type=3#meme-Dog-Patron&apos;); width: 409px; height: 610px; left: 100px; top: 50%; translate: 0 -25%; transform-origin: center;" />
+            <ui:VisualElement class="meme" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-Patron.png?fileID=2800000&amp;guid=a507d15f1eab4774491bfc5b3518fb78&amp;type=3#meme-Dog-Patron&apos;); width: 409px; height: 610px; left: 100px; top: 50%; translate: 0 -40%; transform-origin: center;" />
             <ui:VisualElement name="arihovich-outer" style="position: absolute; height: 456px; width: 547px; translate: -50% 0; left: 69%; scale: 0.69 0.69; transform-origin: bottom; bottom: 0;">
                 <ui:VisualElement name="arihovich-inner" style="background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Arihovich.png?fileID=2800000&amp;guid=c3581506893013d458dacf8aec8d48d5&amp;type=3#meme-Arihovich&apos;); width: 547px; height: 456px;" />
             </ui:VisualElement>
             <ui:VisualElement class="meme" style="position: absolute; background-image: url(&apos;project://database/Assets/Sprites/Memes/meme-Dog-female_mirror.png?fileID=2800000&amp;guid=d76332c480b1c514592a4080d2f09c0f&amp;type=3#meme-Dog-female_mirror&apos;); width: 433px; height: 577px; top: 50%; translate: 0 -50%; right: 100px; transform-origin: center;" />
         </ui:VisualElement>
+        <Kukumberman.Minesweeper.UI.Elements.LanguageCollectionElement picking-mode="Ignore" style="position: absolute; left: 50px; bottom: 50px;">
+            <ui:Label text="Language" name="label-language" picking-mode="Ignore" style="font-size: 30px; -unity-text-align: middle-left; -unity-font-style: bold; margin-bottom: 20px;" />
+            <ui:VisualElement name="content" style="flex-direction: row; transform-origin: top;">
+                <ui:Instance template="UXML Template LanguageCollectionItem" name="UXML Template LanguageCollectionItem" />
+                <ui:Instance template="UXML Template LanguageCollectionItem" name="UXML Template LanguageCollectionItem" />
+                <ui:Instance template="UXML Template LanguageCollectionItem" name="UXML Template LanguageCollectionItem" />
+            </ui:VisualElement>
+        </Kukumberman.Minesweeper.UI.Elements.LanguageCollectionElement>
     </ui:VisualElement>
 </ui:UXML>

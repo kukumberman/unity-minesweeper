@@ -7,6 +7,7 @@ namespace Kukumberman.Minesweeper
     {
         public int SelectedStageIndex;
         public string SeedAsText;
+        public string PreferredLanguage;
 
         protected override void PopulateDefaultModel(GameConfig config)
         {
