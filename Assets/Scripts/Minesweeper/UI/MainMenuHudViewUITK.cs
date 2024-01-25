@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Game.UI.Hud;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace Kukumberman.Minesweeper.UI
 {
@@ -9,6 +11,9 @@ namespace Kukumberman.Minesweeper.UI
         : BaseHudWithModelUITK<MainMenuHudModel>,
             IMainMenuHudView
     {
+        private const int kTweenRotationMaxWobbleAngle = 10;
+        private const int kTweenRotationLoopDurationMs = 5000;
+
         public event Action OnPlayButtonClicked;
         public event Action OnRandomizeSeedButtonClicked;
         public event Action<string> OnSeedInputFieldValueChanged;
@@ -19,6 +24,8 @@ namespace Kukumberman.Minesweeper.UI
         private Button _btnRandomizeSeed;
         private RadioButtonGroup _radioButtonGroup;
         private VisualElement _imgBackground;
+
+        private List<ValueAnimation<float>> _tweens = new();
 
         protected override void OnEnable()
         {
@@ -40,6 +47,16 @@ namespace Kukumberman.Minesweeper.UI
             _radioButtonGroup.RegisterValueChangedCallback(
                 RadioButtonGroupStageValueChangedHandler
             );
+
+            var elementsToTween = this.Query<VisualElement>(null, "wobble-rotation").ToList();
+
+            for (int i = 0; i < elementsToTween.Count; i++)
+            {
+                var tween = CreateRotationTween(elementsToTween[i]);
+                tween.autoRecycle = false;
+                tween.OnCompleted(() => tween.Start());
+                _tweens.Add(tween);
+            }
         }
 
         protected override void OnDisable()
@@ -56,6 +73,15 @@ namespace Kukumberman.Minesweeper.UI
             _inputFieldSeed = null;
             _radioButtonGroup = null;
             _imgBackground = null;
+
+            for (int i = 0; i < _tweens.Count; i++)
+            {
+                var tween = _tweens[i];
+                tween.Stop();
+                tween.Recycle();
+            }
+
+            _tweens.Clear();
         }
 
         protected override void OnApplyModel(MainMenuHudModel model)
@@ -88,6 +114,21 @@ namespace Kukumberman.Minesweeper.UI
         private void RadioButtonGroupStageValueChangedHandler(ChangeEvent<int> evt)
         {
             OnSelectedStageIndexChanged.SafeInvoke(evt.newValue);
+        }
+
+        private ValueAnimation<float> CreateRotationTween(VisualElement element)
+        {
+            return element.experimental.animation
+                .Start(0f, 1f, kTweenRotationLoopDurationMs, RotationTweenOnValueChanged)
+                .Ease(Easing.Linear);
+        }
+
+        private void RotationTweenOnValueChanged(VisualElement ve, float value01)
+        {
+            var sinInput = 2 * Mathf.PI * value01;
+            var sinOutput = Mathf.Sin(sinInput);
+            var angle = sinOutput * kTweenRotationMaxWobbleAngle;
+            ve.style.rotate = new StyleRotate(new Rotate(new Angle(angle, AngleUnit.Degree)));
         }
     }
 }
