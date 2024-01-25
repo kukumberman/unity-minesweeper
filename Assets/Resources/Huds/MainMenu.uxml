@@ -3,7 +3,9 @@
     <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20Buttons.uss?fileID=7433441132597879392&amp;guid=d716d25c552436147ac3616116eaa900&amp;type=3#USS Buttons" />
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
-        <ui:VisualElement picking-mode="Ignore" name="img-logo" style="position: absolute; width: 1920px; height: 1080px; background-image: url(&apos;project://database/Assets/Sprites/logo.png?fileID=2800000&amp;guid=c3638f159d89c18478f8de6aa1d7ef90&amp;type=3#logo&apos;); -unity-background-scale-mode: scale-to-fit; translate: 0 -69px;" />
+        <ui:VisualElement name="logo-flex-wrapper" style="position: absolute; width: 100%; height: 100%; align-items: center;">
+            <ui:VisualElement picking-mode="Ignore" name="img-logo" style="width: 1920px; height: 1080px; background-image: url(&apos;project://database/Assets/Sprites/logo.png?fileID=2800000&amp;guid=c3638f159d89c18478f8de6aa1d7ef90&amp;type=3#logo&apos;); -unity-background-scale-mode: scale-to-fit; translate: 0 -69px;" />
+        </ui:VisualElement>
         <ui:VisualElement name="flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
             <ui:VisualElement style="align-items: center; justify-content: center; translate: 0 100px;">
                 <ui:Button text="PLAY" name="btn-play" class="btn bg-success-hoverable color-white-hoverable" />
