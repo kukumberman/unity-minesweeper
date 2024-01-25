@@ -14,8 +14,6 @@ namespace Kukumberman.Minesweeper.Core
         private int _bombCount;
         private Random _random;
 
-        private int[] _enumerableRange;
-
         public MinesweeperCell[] CellsRef => _cells;
         public int Width => _grid.Width;
         public int Height => _grid.Height;
@@ -28,8 +26,6 @@ namespace Kukumberman.Minesweeper.Core
             _cells = new MinesweeperCell[settings.Width * settings.Height];
 
             _bombCount = settings.BombCount;
-
-            _enumerableRange = Enumerable.Range(0, _cells.Length).ToArray();
 
             FillEmptyCells();
         }
@@ -61,16 +57,16 @@ namespace Kukumberman.Minesweeper.Core
 
         private void FillRandomBombs()
         {
-            Array.Sort(_enumerableRange);
-            _enumerableRange.Shuffle(_random);
+            _cells.Shuffle(_random);
 
             for (int i = 0; i < _bombCount; i++)
             {
-                var idx = _enumerableRange[i];
-                _cells[idx].IsBomb = true;
+                _cells[i].IsBomb = true;
             }
 
-            var indexes = new List<int>(_cells.Length);
+            Array.Sort(_cells, CellComparisonByIndex);
+
+            var indexes = new List<int>(8);
 
             for (int i = 0; i < _cells.Length; i++)
             {
@@ -87,6 +83,11 @@ namespace Kukumberman.Minesweeper.Core
                     }
                 }
             }
+        }
+
+        private static int CellComparisonByIndex(MinesweeperCell lhs, MinesweeperCell rhs)
+        {
+            return lhs.Index - rhs.Index;
         }
     }
 
