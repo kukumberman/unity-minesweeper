@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="UXML Template InputPrompt" src="project://database/Assets/UI%20Toolkit/Data/UXML%20Template%20InputPrompt.uxml?fileID=9197481963319205126&amp;guid=0eeb9c9e4d8124749964225e8427fb7c&amp;type=3#UXML Template InputPrompt" />
+    <Style src="project://database/Assets/UI%20Toolkit/Data/USS%20Buttons.uss?fileID=7433441132597879392&amp;guid=d716d25c552436147ac3616116eaa900&amp;type=3#USS Buttons" />
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
         <ui:VisualElement name="center-flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
@@ -20,7 +21,7 @@
                 <ui:VisualElement name="grid" style="width: 900px; height: 900px; flex-wrap: wrap; flex-direction: row;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Menu" name="btn-menu" style="position: absolute; left: 50px; top: 50px; width: 200px; height: 100px; font-size: 50px;" />
+        <ui:Button text="Menu" name="btn-menu" class="btn bg-primary-hoverable color-white-hoverable" style="position: absolute; left: 50px; top: 50px;" />
         <ui:VisualElement picking-mode="Ignore" style="position: absolute; width: 100%; height: 100%;">
             <ui:VisualElement name="help-panel" style="background-color: rgba(0, 0, 0, 0.25); width: 450px; top: 50%; translate: 0 -50%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; left: -400px; transition-property: left; transition-duration: 0.5s;">
                 <ui:VisualElement name="list" picking-mode="Ignore">

@@ -1,0 +1,49 @@
+#btn-play
+{
+	width: 300px;
+	height: 150px;
+	font-size: 69px;
+	border-radius: 15px;
+}
+
+#btn-randomize-seed
+{
+	font-size: 25px;
+	border-radius: 6px;
+}
+
+#btn-menu
+{
+	width: 200px;
+	height: 100px;
+	font-size: 50px;
+	border-radius: 10px;
+}
+
+.btn
+{
+	color: black;
+	background-color: #f8f9fa;
+	transition-property: background-color;
+	transition-duration: 0.2s;
+}
+
+.color-white-hoverable:hover
+{
+	color: white;
+}
+
+.bg-primary-hoverable:hover
+{
+	background-color: #007bff;
+}
+
+.bg-success-hoverable:hover
+{
+	background-color: #28a745;
+}
+
+.bg-danger-hoverable:hover
+{
+	background-color: #dc3545;
+}
