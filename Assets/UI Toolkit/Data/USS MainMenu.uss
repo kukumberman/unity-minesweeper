@@ -25,3 +25,16 @@
 {
 	bottom: -500px;
 }
+
+LanguageCollectionItemElement
+{
+	scale: 1;
+
+	transition-property: scale;
+	transition-duration: 0.1s;
+}
+
+LanguageCollectionItemElement:hover
+{
+	scale: 1.2;
+}

@@ -62,6 +62,17 @@ namespace Kukumberman.Minesweeper.UI.Elements
 
         protected override void OnModelChanged(LanguageCollectionModel model) { }
 
+        public void SetSelectionColor(Color color)
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (_items[i].Model.IsSelected)
+                {
+                    _items[i].SetSelectionColor(color);
+                }
+            }
+        }
+
         private void Create()
         {
             _contentParent.Clear();
@@ -79,6 +90,7 @@ namespace Kukumberman.Minesweeper.UI.Elements
                 item.Model = Model.ItemModels[i];
                 item.RegisterCallback<ClickEvent>(LanguageItemElementClickHandler);
                 _contentParent.Add(item);
+                _items.Add(item);
             }
         }
 

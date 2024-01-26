@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Game.UI.Hud;
-using Kukumberman.Minesweeper.UI.Elements;
+using Injection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
+using Kukumberman.Minesweeper.UI.Elements;
+using Kukumberman.Extra;
 
 namespace Kukumberman.Minesweeper.UI
 {
@@ -32,6 +34,8 @@ namespace Kukumberman.Minesweeper.UI
         private LanguageCollectionElement _languageCollection;
 
         private List<ValueAnimation<float>> _tweens = new();
+
+        private GradientColorBehaviour _gradientColor;
 
         protected override void OnEnable()
         {
@@ -74,6 +78,9 @@ namespace Kukumberman.Minesweeper.UI
 
             _languageCollection.OnEnable();
             _languageCollection.OnItemClicked += LanguageCollection_OnItemClicked;
+
+            _gradientColor = Context.Current.Get<GradientColorBehaviour>();
+            _gradientColor.OnColorChanged.AddListener(OnGradientColorChanged);
         }
 
         protected override void OnDisable()
@@ -106,6 +113,9 @@ namespace Kukumberman.Minesweeper.UI
             }
 
             _tweens.Clear();
+
+            _gradientColor.OnColorChanged.RemoveListener(OnGradientColorChanged);
+            _gradientColor = null;
         }
 
         protected override void OnApplyModel(MainMenuHudModel model)
@@ -132,6 +142,11 @@ namespace Kukumberman.Minesweeper.UI
             _labelSeed.text = Model.I18N.LabelSeed;
             _labelLanguage.text = Model.I18N.LabelLanguage;
             _btnRandomizeSeed.text = Model.I18N.LabelRandomizeSeed;
+        }
+
+        private void OnGradientColorChanged(Color color)
+        {
+            _languageCollection.SetSelectionColor(color);
         }
 
         private void BtnPlay_clicked()

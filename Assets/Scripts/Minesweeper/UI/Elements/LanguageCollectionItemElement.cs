@@ -33,5 +33,10 @@ namespace Kukumberman.Minesweeper.UI.Elements
                 : Visibility.Hidden;
             _imgFlag.style.backgroundImage = new StyleBackground(model.FlagSprite);
         }
+
+        public void SetSelectionColor(Color color)
+        {
+            _imgSelection.style.unityBackgroundImageTintColor = new StyleColor(color);
+        }
     }
 }
