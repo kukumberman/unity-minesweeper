@@ -4,7 +4,7 @@
     <ui:VisualElement style="width: 100%; height: 100%;">
         <ui:VisualElement name="img-background" style="position: absolute; width: 100%; height: 100%; -unity-background-scale-mode: scale-and-crop; display: none;" />
         <ui:VisualElement name="center-flex-wrapper" style="justify-content: center; align-items: center; width: 100%; height: 100%;">
-            <ui:VisualElement style="align-items: center; position: absolute;">
+            <ui:VisualElement style="align-items: center; position: absolute; transition-property: scale; transition-duration: 0.1s; transition-timing-function: ease-out-sine;">
                 <ui:VisualElement name="top-flex-wrapper" style="width: 100%; justify-content: space-between; align-items: center; flex-direction: row;">
                     <ui:VisualElement style="flex-direction: row; align-items: center;">
                         <ui:VisualElement name="img-bomb" style="background-image: url(&apos;project://database/Assets/Sprites/bomb.png?fileID=2800000&amp;guid=1908ef1091c36254892fc20c02d6b419&amp;type=3#bomb&apos;); height: 80px; width: 80px;" />
