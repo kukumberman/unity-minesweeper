@@ -12,9 +12,18 @@ namespace Kukumberman.ReactUnity.Extra
 
     public sealed class ReactAfterStartAttribute : ReactCallbackAttribute { }
 
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(
+        AttributeTargets.Class | AttributeTargets.Field,
+        AllowMultiple = false,
+        Inherited = true
+    )]
     public sealed class ReactInjectGlobalAttribute : Attribute
     {
-        public string Name;
+        public readonly string Name;
+
+        public ReactInjectGlobalAttribute(string name)
+        {
+            Name = name;
+        }
     }
 }

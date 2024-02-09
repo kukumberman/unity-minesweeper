@@ -27,6 +27,7 @@ namespace Kukumberman.ReactUnity.Extra
             {
                 RegisterComponent(monoBehaviours[i]);
                 RegisterGlobalEntry(monoBehaviours[i]);
+                RegisterGlobalEntryFields(monoBehaviours[i]);
             }
         }
 
@@ -167,6 +168,17 @@ namespace Kukumberman.ReactUnity.Extra
                 if (!_renderer.Globals.ContainsKey(attribute.Name))
                 {
                     _renderer.Globals.Add(attribute.Name, component);
+
+                    if (_verboseLogging)
+                    {
+                        Debug.Log(
+                            string.Format(
+                                "Added global entry with key <b>{0}</b> of type <b>{1}</b>",
+                                attribute.Name,
+                                componentType.Name
+                            )
+                        );
+                    }
                 }
                 else
                 {
@@ -175,7 +187,7 @@ namespace Kukumberman.ReactUnity.Extra
                         var existing = _renderer.Globals[attribute.Name];
                         var existingType = existing.GetType();
 
-                        Debug.LogError(
+                        Debug.LogWarning(
                             string.Format(
                                 "Record with key <b>{0}</b> already added as <b>{1}</b>, ignoring <b>{2}</b>",
                                 attribute.Name,
@@ -184,6 +196,67 @@ namespace Kukumberman.ReactUnity.Extra
                             )
                         );
                     }
+                }
+            }
+        }
+
+        private void RegisterGlobalEntryFields(MonoBehaviour component)
+        {
+            var componentType = component.GetType();
+
+            var fields = componentType.GetFields(
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            );
+
+            for (int i = 0; i < fields.Length; i++)
+            {
+                TryRegisterGlobalEntryField(component, fields[i]);
+            }
+        }
+
+        private void TryRegisterGlobalEntryField(MonoBehaviour target, FieldInfo field)
+        {
+            var attribute = field.GetCustomAttribute<ReactInjectGlobalAttribute>();
+
+            if (attribute == null)
+            {
+                return;
+            }
+
+            var key = attribute.Name;
+
+            if (!_renderer.Globals.ContainsKey(key))
+            {
+                _renderer.Globals.Add(key, field.GetValue(target));
+
+                if (_verboseLogging)
+                {
+                    Debug.Log(
+                        string.Format(
+                            "Added global entry with key <b>{0}</b> from field <b>{1}.{2}</b>",
+                            attribute.Name,
+                            field.DeclaringType.Name,
+                            field.Name
+                        )
+                    );
+                }
+            }
+            else
+            {
+                if (_verboseLogging)
+                {
+                    var existing = _renderer.Globals[key];
+                    var existingType = existing.GetType();
+
+                    Debug.LogWarning(
+                        string.Format(
+                            "Record with key <b>{0}</b> already added as <b>{1}</b>, ignoring field <b>{2}.{3}</b>",
+                            attribute.Name,
+                            existingType.Name,
+                            field.DeclaringType.Name,
+                            field.Name
+                        )
+                    );
                 }
             }
         }
