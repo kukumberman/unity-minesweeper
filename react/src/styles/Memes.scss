@@ -1,0 +1,22 @@
+.meme {
+  scale: 1;
+  rotate: 0deg;
+
+  transition-property: scale, rotate;
+  transition-duration: 0.5s;
+}
+
+.meme:hover {
+  scale: 1.1;
+  rotate: -5deg;
+}
+
+.arihovich-inner {
+  bottom: 0px;
+  transition-property: bottom;
+  transition-duration: 0.3s;
+}
+
+.arihovich-outer:hover > .arihovich-inner {
+  bottom: -500px;
+}

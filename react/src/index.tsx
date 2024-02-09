@@ -1,10 +1,22 @@
-import { render } from '@reactunity/renderer';
-import './index.scss';
+import { render } from "@reactunity/renderer";
+import React from "react";
+import AppContextProvider from "./components/AppContextProvider";
+import App from "./components/App";
+import LocalizationManager from "./core/LocalizationManager";
 
-function App() {
-  return <scroll>
-    <text>{`Go to <color=red>src/index.tsx</color> to edit this file`}</text>
-  </scroll>;
-}
+Interop.UnityEngine.Application.targetFrameRate = 60;
 
-render(<App />);
+const spriteStorage = Globals.SpriteStorage;
+spriteStorage.Initialize();
+
+const localizationManager = new LocalizationManager();
+localizationManager.fromJson(Globals.LocalizationJsonTextAsset.text);
+Globals.LocalizationManager = localizationManager;
+
+render(
+  <React.StrictMode>
+    <AppContextProvider>
+      <App />
+    </AppContextProvider>
+  </React.StrictMode>
+);

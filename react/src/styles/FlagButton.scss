@@ -1,0 +1,10 @@
+.flag-animated {
+  scale: 1;
+
+  transition-property: scale;
+  transition-duration: 0.1s;
+}
+
+.flag-animated:hover {
+  scale: 1.2;
+}

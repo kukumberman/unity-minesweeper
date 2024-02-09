@@ -12,3 +12,24 @@ declare global {
     radioButtonGroup: RadioButtonGroup;
   }
 }
+
+declare global {
+  type MinesweeperGameSettings = {
+    Width: number;
+    Height: number;
+    BombCount: number;
+  };
+  type MinesweeperStage = {
+    Name: string;
+    Settings: MinesweeperGameSettings;
+  };
+  type MinesweeperCell = {
+    Index: number;
+    X: number;
+    Y: number;
+    BombNeighborCount: number;
+    IsBomb: boolean;
+    IsFlag: boolean;
+    IsRevealed: boolean;
+  };
+}

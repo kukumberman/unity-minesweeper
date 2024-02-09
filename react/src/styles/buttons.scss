@@ -1,0 +1,22 @@
+.btn {
+  color: black;
+  background-color: #f8f9fa;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+}
+
+.text-white-hoverable:hover {
+  color: white;
+}
+
+.bg-primary-hoverable:hover {
+  background-color: #007bff;
+}
+
+.bg-success-hoverable:hover {
+  background-color: #28a745;
+}
+
+.bg-danger-hoverable:hover {
+  background-color: #dc3545;
+}
