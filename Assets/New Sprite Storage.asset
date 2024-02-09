@@ -19,3 +19,41 @@ MonoBehaviour:
     Value: {fileID: 21300000, guid: 211982a0646a3174b8f53c7c666fa44b, type: 3}
   - Key: flag_Polish
     Value: {fileID: 21300000, guid: 81db38e923c2a694b8721a29752c0551, type: 3}
+  - Key: '***react***'
+    Value: {fileID: 0}
+  - Key: flag_Outline
+    Value: {fileID: 21300000, guid: 4d60e3b107bd61d4586f07059672699a, type: 3}
+  - Key: logo
+    Value: {fileID: 21300000, guid: c3638f159d89c18478f8de6aa1d7ef90, type: 3}
+  - Key: meme-Dog-Patron
+    Value: {fileID: 21300000, guid: a507d15f1eab4774491bfc5b3518fb78, type: 3}
+  - Key: meme-Dog-female_mirror
+    Value: {fileID: 21300000, guid: d76332c480b1c514592a4080d2f09c0f, type: 3}
+  - Key: meme-Arihovich
+    Value: {fileID: 21300000, guid: c3581506893013d458dacf8aec8d48d5, type: 3}
+  - Key: tutorial_1
+    Value: {fileID: 21300000, guid: 40fd6344e77314245939e4de2cd06181, type: 3}
+  - Key: tutorial_2
+    Value: {fileID: 21300000, guid: 9324db207d38d9a459fdcf242d158ddf, type: 3}
+  - Key: tutorial_3
+    Value: {fileID: 21300000, guid: 949ad257bdfa9dd4db6126497b43f1f2, type: 3}
+  - Key: tutorial_4
+    Value: {fileID: 21300000, guid: ba1899a6ce1898b4eaea2b44a7d7bcbc, type: 3}
+  - Key: emoji_sos
+    Value: {fileID: 21300000, guid: f483f06e264575f47a3e457b25233b37, type: 3}
+  - Key: emoji_bomb
+    Value: {fileID: 21300000, guid: 1908ef1091c36254892fc20c02d6b419, type: 3}
+  - Key: emoji_flag
+    Value: {fileID: 21300000, guid: 4886f49ff2e795b45b6c0452b1437494, type: 3}
+  - Key: emoji_stopwatch
+    Value: {fileID: 21300000, guid: f9e663c346e3a614d86b8526843d8d59, type: 3}
+  - Key: emoji_playing
+    Value: {fileID: 21300000, guid: ce7221f7aae9a9f45a14fd3171dc0d5d, type: 3}
+  - Key: emoji_win
+    Value: {fileID: 21300000, guid: 1e79547ef39633a408c2687037309fcb, type: 3}
+  - Key: emoji_defeat
+    Value: {fileID: 21300000, guid: 4b0d57a1546613a4e8f325eed40d743b, type: 3}
+  - Key: cell_1
+    Value: {fileID: 21300000, guid: e156f265e8a8202448b413b1e782a53c, type: 3}
+  - Key: cell_2
+    Value: {fileID: 21300000, guid: ce90e9f5409493a4ea8c23e245210c60, type: 3}

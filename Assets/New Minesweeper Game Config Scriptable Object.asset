@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Config:
     Stages:
+    - Name: Noob
+      Settings:
+        Width: 9
+        Height: 9
+        BombCount: 1
     - Name: Newbie
       Settings:
         Width: 9
