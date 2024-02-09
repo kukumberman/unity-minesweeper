@@ -1,0 +1,5 @@
+<linker>
+    <assembly fullname="ReactUnity" preserve="all" />
+    <assembly fullname="mscorlib" preserve="all" />
+    <assembly fullname="UnityEngine.CoreModule" preserve="all" />
+</linker>
