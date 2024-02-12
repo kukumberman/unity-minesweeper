@@ -217,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491945242}
   - component: {fileID: 491945241}
+  - component: {fileID: 491945244}
   - component: {fileID: 491945243}
   m_Layer: 0
   m_Name: GameObject
@@ -240,6 +241,13 @@ MonoBehaviour:
   _font: {fileID: 2230732570650464555, guid: f1d7111921a9bfb4e8b1dc3cba453162, type: 3}
   _material: {fileID: 2100000, guid: 366025ee14cb9a042a4532915c1ae7d3, type: 2}
   _camera: {fileID: 142226157}
+  _runtimeTexture: {fileID: 0}
+  _service: {fileID: 491945244}
+  _settings:
+    Width: 9
+    Height: 9
+    BombCount: 10
+  _seed: 0
 --- !u!4 &491945242
 Transform:
   m_ObjectHideFlags: 0
@@ -307,6 +315,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &491945244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491945240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a64f34775ee554e8fa936b924afebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &924928174
 GameObject:
   m_ObjectHideFlags: 0

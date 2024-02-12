@@ -2,7 +2,6 @@ Shader "Unlit/MinesweeperGrid"
 {
     Properties
     {
-        [HideInInspector]
         _MainTex ("Texture", 2D) = "white" {}
 
         _GridSize ("Grid Size", Vector) = (1, 1, 0, 0)
@@ -104,6 +103,39 @@ Shader "Unlit/MinesweeperGrid"
                 return trimmedColor;
             }
 
+            fixed4 SampleIcon(sampler2D tex, float2 uv)
+            {
+                float scale = 1.5;
+                uv = scaleUv(uv, scale, 0.5);
+                return tex2D(tex, uv);
+            }
+
+            int4 SampleAsInt4(float2 uv)
+            {
+                // https://forum.unity.com/threads/cant-pass-an-integer-to-a-shader.950419/#post-6196543
+                return (int4)(tex2D(_MainTex, uv) * 255.0 + 0.5);
+            }
+
+            bool IsRevealed(float2 uv)
+            {
+                return SampleAsInt4(uv).x == 0;
+            }
+
+            bool IsBomb(float2 uv)
+            {
+                return SampleAsInt4(uv).g == 200;
+            }
+
+            bool IsFlag(float2 uv)
+            {
+                return SampleAsInt4(uv).g == 100;
+            }
+
+            int GetBombNeighborCount(float2 uv)
+            {
+                return SampleAsInt4(uv).b;
+            }
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -129,15 +161,16 @@ Shader "Unlit/MinesweeperGrid"
 
                 int cellIndex = (int)(uvFloor.y * _GridSize.x + uvFloor.x);
                 int normalizedIndex = cellIndex % 9u;
-                fixed4 numberColor = _Colors[normalizedIndex];
+                int bombCount = GetBombNeighborCount(i.uv);
+                fixed4 numberColor = _Colors[bombCount];
 
                 float2 gridMin = step(gridPos, uvFloor);
                 float2 gridMax = step(uvFloor, gridPos);
                 float value = gridMin.x * gridMin.y * gridMax.x * gridMax.y;
 
-                bool isRevealed = true;
-                bool isBomb = false;
-                bool isFlag = false;
+                bool isRevealed = IsRevealed(i.uv);
+                bool isBomb = IsBomb(i.uv);
+                bool isFlag = IsFlag(i.uv);
 
                 fixed4 cellColor;
 
@@ -147,6 +180,12 @@ Shader "Unlit/MinesweeperGrid"
                     fixed4 fontColor = SampleFontTexture(fontUv);
                     float fontMask = fontColor.a;
                     cellColor = lerp(colorCellOpened, numberColor, fontMask);
+
+                    if (isBomb)
+                    {
+                        fixed4 bombColor = SampleIcon(_TextureBomb, uvFrac);
+                        cellColor = lerp(cellColor, bombColor, bombColor.a);
+                    }
                 }
                 else
                 {
@@ -160,9 +199,7 @@ Shader "Unlit/MinesweeperGrid"
 
                     if (isFlag)
                     {
-                        float2 flagUv = uvFrac;
-                        flagUv = scaleUv(flagUv, 2, 0.5);
-                        fixed4 flagColor = tex2D(_TextureFlag, flagUv);
+                        fixed4 flagColor = SampleIcon(_TextureFlag, uvFrac);
                         cellColor = lerp(cellColor, flagColor, flagColor.a);
                     }
                 }
