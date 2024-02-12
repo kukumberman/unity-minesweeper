@@ -242,6 +242,7 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: 366025ee14cb9a042a4532915c1ae7d3, type: 2}
   _camera: {fileID: 142226157}
   _runtimeTexture: {fileID: 0}
+  _saveTextureLocally: 0
   _service: {fileID: 491945244}
   _settings:
     Width: 9

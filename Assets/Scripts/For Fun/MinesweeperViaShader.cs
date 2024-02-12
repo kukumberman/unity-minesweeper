@@ -29,6 +29,9 @@ public sealed class MinesweeperViaShader : MonoBehaviour
     [SerializeField]
     private Texture2D _runtimeTexture;
 
+    [SerializeField]
+    private bool _saveTextureLocally;
+
     [Header("Gameplay")]
     [SerializeField]
     private MinesweeperService _service;
@@ -73,6 +76,13 @@ public sealed class MinesweeperViaShader : MonoBehaviour
         {
             _runtimeTexture = CreateTexture();
         }
+
+#if UNITY_EDITOR
+        if (_saveTextureLocally)
+        {
+            SaveTextureLocally(_runtimeTexture);
+        }
+#endif
 
         _pixels = _runtimeTexture.GetPixels32();
 
@@ -188,12 +198,14 @@ public sealed class MinesweeperViaShader : MonoBehaviour
         texture.SetPixels32(colors32);
         texture.Apply();
 
-#if UNITY_EDITOR
-        var path = Path.Combine(Application.dataPath, "minesweeper.png");
+        return texture;
+    }
+
+    private void SaveTextureLocally(Texture2D texture)
+    {
+        var path = Path.Combine(Application.persistentDataPath, "minesweeper.png");
         var bytes = texture.EncodeToPNG();
         File.WriteAllBytes(path, bytes);
-#endif
-        return texture;
     }
 
     private bool MousePositionToIndex(out int index)
