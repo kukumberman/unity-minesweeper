@@ -45,6 +45,8 @@ public sealed class MinesweeperViaShader : MonoBehaviour
 
     private Color32[] _pixels;
 
+    private Vector4[] _fontUvs = new Vector4[4 * 10];
+
     private void OnEnable()
     {
         Font.textureRebuilt += Font_textureRebuilt;
@@ -58,6 +60,7 @@ public sealed class MinesweeperViaShader : MonoBehaviour
     private void OnDestroy()
     {
         _material.SetVector("_MousePosition", Vector2.zero);
+        _material.SetTexture("_MainTex", null);
     }
 
     private void Start()
@@ -152,12 +155,15 @@ public sealed class MinesweeperViaShader : MonoBehaviour
 
         _material.SetTexture("_FontTexture", _font.material.mainTexture);
 
-        var charInfo = _font.characterInfo[4];
+        for (int i = 0, j = 0; i < _font.characterInfo.Length; i++)
+        {
+            _fontUvs[j++] = _font.characterInfo[i].uvBottomLeft;
+            _fontUvs[j++] = _font.characterInfo[i].uvBottomRight;
+            _fontUvs[j++] = _font.characterInfo[i].uvTopRight;
+            _fontUvs[j++] = _font.characterInfo[i].uvTopLeft;
+        }
 
-        _material.SetVector("_UVBottomLeft", charInfo.uvBottomLeft);
-        _material.SetVector("_UVBottomRight", charInfo.uvBottomRight);
-        _material.SetVector("_UVTopRight", charInfo.uvTopRight);
-        _material.SetVector("_UVTopLeft", charInfo.uvTopLeft);
+        _material.SetVectorArray("_FontUvs", _fontUvs);
 
         _material.SetColorArray("_Colors", _colorArray);
 

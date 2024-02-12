@@ -63,10 +63,11 @@ Shader "Unlit/MinesweeperGrid"
 
             float4 _Colors[9];
 
-            float4 _UVBottomLeft;
-            float4 _UVBottomRight;
-            float4 _UVTopRight;
-            float4 _UVTopLeft;
+            // bottomLeft
+            // bottomRight
+            // topRight
+            // topLeft
+            float4 _FontUvs[4 * 10];
 
             float2 scaleUv(float2 uv, float2 scale, float2 pivot)
             {
@@ -76,31 +77,44 @@ Shader "Unlit/MinesweeperGrid"
                 return uv;
             }
 
-            fixed4 SampleFontTexture(float2 uv)
+            void unpackFontUv(int index, out float2 bottomLeft, out float2 bottomRight, out float2 topRight, out float2 topLeft)
             {
-                float width = abs(_UVBottomRight.x - _UVBottomLeft.x);
-                float height = abs(_UVTopLeft.y - _UVBottomLeft.y);
+                int j = index * 4;
+                bottomLeft = _FontUvs[j + 0];
+                bottomRight = _FontUvs[j + 1];
+                topRight = _FontUvs[j + 2];
+                topLeft = _FontUvs[j + 3];
+            }
+
+            fixed4 SampleFontTexture(int index, float2 uv)
+            {
+                float2 bottomLeft;
+                float2 bottomRight;
+                float2 topRight;
+                float2 topLeft;
+
+                unpackFontUv(index, bottomLeft, bottomRight, topRight, topLeft);
+
+                float width = abs(bottomRight.x - bottomLeft.x);
+                float height = abs(topLeft.y - bottomLeft.y);
                 float aspect = width / height;
 
-                float2 a = lerp(_UVBottomLeft.xy, _UVBottomRight.xy, uv.x);
-                float2 b = lerp(_UVTopLeft.xy, _UVTopRight.xy, uv.x);
+                float2 a = lerp(bottomLeft.xy, bottomRight.xy, uv.x);
+                float2 b = lerp(topLeft.xy, topRight.xy, uv.x);
                 float2 myUv = lerp(a, b, uv.y);
                 
                 float2 scaledUv = myUv;
-                float2 pivot = lerp(_UVBottomLeft, _UVTopRight, 0.5);
+                float2 pivot = lerp(bottomLeft, topRight, 0.5);
                 float baseScale = _FontScale;
                 float2 scale = float2(baseScale / aspect, baseScale);
                 scaledUv = scaleUv(scaledUv, scale, pivot);
                 
-                fixed4 originalColor = tex2D(_FontTexture, scaledUv);
-                fixed4 trimmedColor = originalColor;
-
-                if (scaledUv.x < _UVBottomLeft.x || scaledUv.x > _UVBottomRight.x || scaledUv.y < _UVTopLeft.y || scaledUv.y > _UVBottomLeft.y)
+                if (scaledUv.x < bottomLeft.x || scaledUv.x > bottomRight.x || scaledUv.y < topLeft.y || scaledUv.y > bottomLeft.y)
                 {
                     return 0;
                 }
 
-                return trimmedColor;
+                return tex2D(_FontTexture, scaledUv);
             }
 
             fixed4 SampleIcon(sampler2D tex, float2 uv)
@@ -176,15 +190,15 @@ Shader "Unlit/MinesweeperGrid"
 
                 if (isRevealed)
                 {
-                    float2 fontUv = uvFrac;
-                    fixed4 fontColor = SampleFontTexture(fontUv);
-                    float fontMask = fontColor.a;
-                    cellColor = lerp(colorCellOpened, numberColor, fontMask);
-
                     if (isBomb)
                     {
                         fixed4 bombColor = SampleIcon(_TextureBomb, uvFrac);
-                        cellColor = lerp(cellColor, bombColor, bombColor.a);
+                        cellColor = lerp(colorCellOpened, bombColor, bombColor.a);
+                    }
+                    else if (bombCount > 0)
+                    {
+                        fixed4 fontColor = SampleFontTexture(bombCount, uvFrac);
+                        cellColor = lerp(colorCellOpened, numberColor, fontColor.a);
                     }
                 }
                 else
