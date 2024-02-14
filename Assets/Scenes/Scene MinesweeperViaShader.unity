@@ -243,7 +243,8 @@ MonoBehaviour:
   _camera: {fileID: 142226157}
   _runtimeTexture: {fileID: 0}
   _saveTextureLocally: 0
-  _service: {fileID: 491945244}
+  _useJobSystem: 1
+  _monoService: {fileID: 491945244}
   _settings:
     Width: 9
     Height: 9

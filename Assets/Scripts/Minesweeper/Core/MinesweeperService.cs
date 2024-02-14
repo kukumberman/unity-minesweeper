@@ -16,7 +16,13 @@ namespace Kukumberman.Minesweeper.Core
         private MinesweeperGameSettings _settings;
         private int _seed;
 
-        public MinesweeperGame Game => _game;
+        public int BombCount => _game.BombCount;
+
+        public int CellCount => _game.CellsRef.Length;
+
+        public int Width => _game.Width;
+
+        public int Height => _game.Height;
 
         public EMinesweeperState State => _state;
 
@@ -31,6 +37,11 @@ namespace Kukumberman.Minesweeper.Core
             }
 
             DispatchStateChangedEvent();
+        }
+
+        public ref MinesweeperCell CellAt(int index)
+        {
+            return ref _game.CellsRef[index];
         }
 
         public void StartGame(MinesweeperGameSettings settings, int seed)
@@ -53,7 +64,7 @@ namespace Kukumberman.Minesweeper.Core
 
         public void RevealCell(int index)
         {
-            var cell = _game.CellsRef[index];
+            ref var cell = ref _game.CellsRef[index];
 
             if (cell.IsFlag)
             {
@@ -80,7 +91,7 @@ namespace Kukumberman.Minesweeper.Core
 
         public void FlagCell(int index)
         {
-            var cell = _game.CellsRef[index];
+            ref var cell = ref _game.CellsRef[index];
 
             if (!cell.IsRevealed)
             {
@@ -114,7 +125,7 @@ namespace Kukumberman.Minesweeper.Core
                 visited.Add(position);
 
                 var cellIndex = grid.ConvertTo1D(position.x, position.y);
-                var nextCell = _game.CellsRef[cellIndex];
+                ref var nextCell = ref _game.CellsRef[cellIndex];
 
                 if (nextCell.BombNeighborCount == 0)
                 {
@@ -123,7 +134,7 @@ namespace Kukumberman.Minesweeper.Core
 
                 foreach (var index in indexes)
                 {
-                    var neighborCell = _game.CellsRef[index];
+                    ref var neighborCell = ref _game.CellsRef[index];
                     queue.Enqueue(new Vector2Int(neighborCell.X, neighborCell.Y));
                     neighborCell.IsRevealed = true;
                     neighborCell.IsFlag = false;
@@ -137,7 +148,7 @@ namespace Kukumberman.Minesweeper.Core
         {
             for (int i = 0, length = _game.CellsRef.Length; i < length; i++)
             {
-                var cell = _game.CellsRef[i];
+                ref var cell = ref _game.CellsRef[i];
 
                 if (cell.IsBomb && !cell.IsFlag)
                 {
@@ -198,6 +209,11 @@ namespace Kukumberman.Minesweeper.Core
         private void DispatchStateChangedEvent()
         {
             OnStateChanged.SafeInvoke();
+        }
+
+        public void Dispose()
+        {
+            //
         }
     }
 }

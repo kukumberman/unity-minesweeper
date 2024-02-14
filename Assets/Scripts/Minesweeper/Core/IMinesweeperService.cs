@@ -6,9 +6,19 @@ namespace Kukumberman.Minesweeper.Core
     {
         event Action OnStateChanged;
 
-        MinesweeperGame Game { get; }
+        ref MinesweeperCell CellAt(int index);
+
+        int CellCount { get; }
+
+        int BombCount { get; }
+
+        int Width { get; }
+
+        int Height { get; }
 
         EMinesweeperState State { get; }
+
+        void Dispose();
 
         void StartGame(MinesweeperGameSettings settings, int seed);
 

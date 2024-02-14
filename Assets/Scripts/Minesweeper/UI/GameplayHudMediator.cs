@@ -84,7 +84,7 @@ namespace Kukumberman.Minesweeper.UI
                 State = _service.State,
                 RemainingBombCount = GetRemainingBombCount(),
                 ElapsedSeconds = 0,
-                GridSize = new Vector2Int(_service.Game.Width, _service.Game.Height),
+                GridSize = new Vector2Int(_service.Width, _service.Height),
                 CellModels = new List<CellElementModel>(),
                 InputPromptModels = new List<InputPromptElementModel>(),
                 StateIconSprite = GetStateIconSprite(_service.State),
@@ -92,10 +92,8 @@ namespace Kukumberman.Minesweeper.UI
                 I18N = new GameplayHudModel.Localization(),
             };
 
-            for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)
+            for (int i = 0, length = _service.CellCount; i < length; i++)
             {
-                var cell = _service.Game.CellsRef[i];
-
                 var model = new CellElementModel()
                 {
                     IsRevealed = false,
@@ -209,9 +207,9 @@ namespace Kukumberman.Minesweeper.UI
 
         private void SyncState()
         {
-            for (int i = 0; i < _service.Game.CellsRef.Length; i++)
+            for (int i = 0, length = _service.CellCount; i < length; i++)
             {
-                var cell = _service.Game.CellsRef[i];
+                ref var cell = ref _service.CellAt(i);
                 var cellModel = _viewModel.CellModels[i];
 
                 cellModel.IsRevealed = cell.IsRevealed;
@@ -253,12 +251,12 @@ namespace Kukumberman.Minesweeper.UI
 
         private int GetRemainingBombCount()
         {
-            var baseCount = _service.Game.BombCount;
+            var baseCount = _service.BombCount;
             var flagCount = 0;
 
-            for (int i = 0, length = _service.Game.CellsRef.Length; i < length; i++)
+            for (int i = 0, length = _service.CellCount; i < length; i++)
             {
-                var cell = _service.Game.CellsRef[i];
+                var cell = _service.CellAt(i);
 
                 if (cell.IsFlag)
                 {

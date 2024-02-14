@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Game.Utilities;
 using Kukumberman.Shared;
 
@@ -71,7 +72,7 @@ namespace Kukumberman.Minesweeper.Core
             for (int i = 0; i < _cells.Length; i++)
             {
                 indexes.Clear();
-                var cell = _cells[i];
+                ref var cell = ref _cells[i];
                 _grid.GetNeighboursNonAlloc(cell.X, cell.Y, indexes);
 
                 for (int j = 0; j < indexes.Count; j++)
@@ -91,7 +92,8 @@ namespace Kukumberman.Minesweeper.Core
         }
     }
 
-    public sealed class MinesweeperCell
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MinesweeperCell
     {
         public int Index;
         public int X;

@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using Kukumberman.Minesweeper.Core;
+using Kukumberman.Shared;
 
 public sealed class MinesweeperViaShader : MonoBehaviour
 {
@@ -32,15 +33,21 @@ public sealed class MinesweeperViaShader : MonoBehaviour
     [SerializeField]
     private bool _saveTextureLocally;
 
-    [Header("Gameplay")]
+    [Header("Advanced")]
     [SerializeField]
-    private MinesweeperService _service;
+    private bool _useJobSystem;
 
+    [SerializeField]
+    private MinesweeperService _monoService;
+
+    [Header("Gameplay")]
     [SerializeField]
     private MinesweeperGameSettings _settings;
 
     [SerializeField]
     private string _seed;
+
+    private IMinesweeperService _service;
 
     private Color[] _colorArray;
 
@@ -64,11 +71,22 @@ public sealed class MinesweeperViaShader : MonoBehaviour
     {
         _material.SetVector("_MousePosition", Vector2.zero);
         _material.SetTexture("_MainTex", null);
+
+        _service.Dispose();
     }
 
     private void Start()
     {
         ConvertColors();
+
+        if (_useJobSystem)
+        {
+            _service = new MinesweeperBurstService();
+        }
+        else
+        {
+            _service = _monoService;
+        }
 
         _service.StartGame(_settings, _seed.GetHashCode());
 
@@ -120,6 +138,15 @@ public sealed class MinesweeperViaShader : MonoBehaviour
         {
             HandleRestart();
         }
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _service.RevealCell(0);
+            SyncState();
+            Debug.Break();
+        }
+#endif
     }
 
     private void Font_textureRebuilt(Font font)
@@ -177,17 +204,12 @@ public sealed class MinesweeperViaShader : MonoBehaviour
 
         _material.SetColorArray("_Colors", _colorArray);
 
-        _material.SetVector("_GridSize", new Vector2(_service.Game.Width, _service.Game.Height));
+        _material.SetVector("_GridSize", new Vector2(_service.Width, _service.Height));
     }
 
     private Texture2D CreateTexture()
     {
-        var texture = new Texture2D(
-            _service.Game.Width,
-            _service.Game.Height,
-            TextureFormat.RGBA32,
-            false
-        );
+        var texture = new Texture2D(_service.Width, _service.Height, TextureFormat.RGBA32, false);
 
         texture.filterMode = FilterMode.Point;
 
@@ -210,15 +232,15 @@ public sealed class MinesweeperViaShader : MonoBehaviour
 
     private bool MousePositionToIndex(out int index)
     {
-        int width = _service.Game.Width;
-        int height = _service.Game.Height;
+        int width = _service.Width;
+        int height = _service.Height;
 
         int x = (int)(_mousePositionUvCoord.x * width);
         int y = (int)((1 - _mousePositionUvCoord.y) * height);
 
         index = y * width + x;
 
-        return index >= 0 && index < _service.Game.CellsRef.Length;
+        return index >= 0 && index < _service.CellCount;
     }
 
     private void HandleLeftClick()
@@ -267,7 +289,7 @@ public sealed class MinesweeperViaShader : MonoBehaviour
         return new Color32(0, 0, 0, 255);
     }
 
-    private static Color32 CellToColor(MinesweeperCell cell)
+    private static Color32 CellToColor(in MinesweeperCell cell)
     {
         return new Color32
         {
@@ -278,19 +300,18 @@ public sealed class MinesweeperViaShader : MonoBehaviour
         };
     }
 
-    private static void FillColors(Color32[] colors, MinesweeperService service)
+    private static void FillColors(Color32[] colors, IMinesweeperService service)
     {
-        var cells = service.Game.CellsRef;
-        var grid = service.Game.Grid;
+        var grid = new Grid2D(service.Width, service.Height);
 
-        var height = service.Game.Height;
+        var height = service.Height;
 
-        for (int i = 0; i < cells.Length; i++)
+        for (int i = 0, length = service.CellCount; i < length; i++)
         {
             grid.ConvertTo2D(i, out var x, out var y);
             y = height - 1 - y;
             var colorIndex = grid.ConvertTo1D(x, y);
-            colors[colorIndex] = CellToColor(cells[i]);
+            colors[colorIndex] = CellToColor(in service.CellAt(i));
         }
     }
 
