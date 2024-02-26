@@ -2,7 +2,7 @@
 
 <img src=".github/logo 1.png">
 
-## Table of contents
+## 📌 Table of contents
 - [Description](#description)
 - [Screenshots](#screenshots)
 - [Features](#features)
@@ -36,7 +36,7 @@ See that guy on the bottom side of the screen? Never trust him!
 
 ## Screenshots
 <details>
-<summary>Details</summary>
+<summary>📷 Details</summary>
 <table>
   <tr>
     <th colspan="2">
@@ -71,10 +71,10 @@ See that guy on the bottom side of the screen? Never trust him!
 
 There are few branches with different stuff:
 - [main](https://github.com/kukumberman/unity-minesweeper/tree/main)
-  - Main purpose is to demonstrate how to structure architecture using [**Unity-Core-Template**](https://github.com/kukumberman/Unity-Core-Template)
+  - Main purpose is to demonstrate how to structure architecture using 👨‍💻 [**Unity-Core-Template**](https://github.com/kukumberman/Unity-Core-Template)
   - If you want to build project in WebGL don't forget to remove scene **Scene Webgl Start** in **EditorBuildSettings** otherwise you would not be able to play game (I made it for [security](https://github.com/kukumberman/Unity-Webgl-Utils) reasons)
 - [react-unity](https://github.com/kukumberman/unity-minesweeper/tree/react-unity)
-  - Same game but was built using different approach using [**ReactUnity**](https://reactunity.github.io/)
+  - Same game but was built using different approach using ⚛️ [**ReactUnity**](https://reactunity.github.io/)
   - Don't forget to install required dependencies (more at [README.md](https://github.com/kukumberman/unity-minesweeper/blob/react-unity/react/README.md))
   - Known issues
     - [Gameplay.tsx](https://github.com/kukumberman/unity-minesweeper/blob/react-unity/react/src/pages/Gameplay.tsx#L238) component is re-rendered each second
@@ -86,6 +86,8 @@ There are few branches with different stuff:
     - Click <kbd>LMB</kbd> (on square) — reveal cell
     - Click <kbd>RMB</kbd> (on squre) — set/remove flag
     - Click <kbd>R</kbd> — restart
+- [feature/job-system](https://github.com/kukumberman/unity-minesweeper/tree/feature/job-system)
+  - Faster processing on large grid using multithreading via **Job System**
 
 ## License
 
